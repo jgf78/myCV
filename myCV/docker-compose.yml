@@ -1,8 +1,0 @@
-version: "3.9"
-services:
-  mycv:
-    image: jgf78/mycv:latest
-    container_name: mycv
-    ports:
-      - "8082:8081"
-    restart: unless-stopped

@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: myCV
-
-server:
-  port: 8081
-
