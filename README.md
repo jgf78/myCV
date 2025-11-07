@@ -1,2 +1,0 @@
-# myCV
-My CV online
