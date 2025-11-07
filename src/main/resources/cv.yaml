@@ -1,0 +1,59 @@
+name: "Julián Gómez Fernández"
+title: "Java Backend Developer"
+photo: "/images/foto-perfil.jpg"
+summary: |
+  Con más de 15 años de experiencia en el mundo tecnológico, he desempeñado diversos roles como desarrollador, analista, devops y líder de equipo. He sido responsable de la gestión de aplicaciones, trabajando directamente con clientes para recoger requisitos, resolver incidencias y proponer mejoras.
+
+  He liderado despliegues en distintos entornos y coordinado equipos de desarrollo para asegurar la entrega de soluciones eficaces y a tiempo. A lo largo de mi carrera, siempre me he mantenido en constante evolución, aprendiendo y adaptándome a las nuevas tecnologías para estar preparado ante cualquier reto.
+
+  Soy organizado, comprometido y disfruto trabajar en equipo. Si te interesa conversar o necesitas más información, ¡no dudes en contactarme!
+
+experience:
+  - company: "Minsait"
+    role: "Senior Consultant | Senior Backend Java Developer"
+    period: "2019 - Actualidad"
+    details:
+      - "Responsable de la gestión, coordinación y desarrollo del equipo técnico"
+      - "Proponer mejoras/propuestas nuevas al proyecto así como velar por las buenas prácticas en el equipo de desarrollo"
+      - "Desarrollo de aplicaciones APIRest con Java 17/21 (Microservicios)"
+      - "Manejo de lambdas"
+      - "Principios SOLID y Clean code"
+      - "Mantenimiento y evolutivos de aplicaciones"
+      - "Test unitarios con Junit y test de rendimiento con JMeter"
+      - "Trabajo con metodología Agile (Jira/Scrum/Kanban)"
+      - "Documentación con Confluence"
+      - "Despliegue y configuración de la aplicación en Openshift."
+      - "Creación y mantenimiento de los pipelines del flujo CI/CD con Jenkins"
+      - "Mentoring a programadores Junior"
+      - "Interlocución con el equipo funcional."
+      - "Exponer al cliente el incremento del valor en cada review"
+      - "Sesiones de capacitación para los usuarios funcionarios en los diferentes ayuntamientos"
+      
+  - company: "Getronics"
+    role: "Analista Funcional"
+    period: "2007 - 2019"
+    details:
+      - "Diseño técnico de las aplicaciones"
+      - "Estudio resolutivo y programación de evolutivos y correctivos"
+      - "Trabajo con metodologías ágiles Scrum y Kanban"
+
+education:
+  - degree: "Técnico especialista en Informática de Gestión"
+    institution: "IES Luis Vives (Leganés)"
+    period: "1997 - 2000"
+
+skills:
+  - "Java 11/17"
+  - "Spring Boot"
+  - "Docker & Kubernetes"
+  - "Apache Kafka"
+  - "Spring Security"
+  - "PostgreSQL / MySQL"
+  - "CI/CD con Jenkins y Nexus"
+  - "Arquitectura de microservicios"
+
+languages:
+  - name: "Español"
+    level: "Nativo"
+  - name: "Inglés"
+    level: "B1"
