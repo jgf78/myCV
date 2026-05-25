@@ -1,0 +1,51 @@
+projects:
+  - name: "Notificador - Telegram bot (https://t.me/kafkajgf_bot)"
+    description: |
+      🚀 Desarrollé Notificador, un bot de Telegram que centraliza información diaria de forma rápida, automatizada y desacoplada
+    features: 
+      - "📰 Titulares del día"
+      - "🎬 Cartelera actual de cine"
+      - "🌦️ Información meteorológica por ciudad"
+      - "📺 Programación TDT"
+      - "🍿 Top series actuales de plataformas de streaming"
+      - "y muchas cosas más..."
+    technologies:
+      - "Java 17"
+      - "Spring Boot"
+      - "PostgreSQL"
+      - "Docker"
+      - "Redis"
+      - "Kafka"
+    github: "https://github.com/jgf78/kafkanotificator"
+
+  - name: "Notificator (Multi-channel system)"
+    description: | 
+        Es una aplicación Spring Boot diseñada para centralizar el envío de notificaciones a múltiples canales.
+        El proyecto se compila, genera imagen Docker y se publica automáticamente en Docker Hub mediante Jenkins CI/CD.
+    features: 
+      - "💬 Telegram"
+      - "💬 Whatsapp"
+      - "💻 Discord"
+      - "💻 MQTT"
+      - "📧 correo electrónico (SMTP)"
+      - "Mensajes programados y muchas cosas más."
+    technologies:
+      - "Java 17"
+      - "Spring Boot"
+      - "PostgreSQL"
+      - "Docker"
+      - "Redis"
+      - "Kafka"
+    github: "https://github.com/jgf78/kafkanotificator"
+
+  - name: "Google Calendar Notifier"
+    description: >
+        Integración con Google Calendar para sincronizar eventos y generar notificaciones automáticas por medio de Notificator. 
+    features:
+        - "Sincronización con Google Calendar API"
+        - "Agenda diaria de todos los calendarios a las 8:00 am"  
+    technologies:
+      - "Java 17"
+      - "Spring Boot"
+      - "Google Calendar API"
+    github: "https://github.com/jgf78/calendar"

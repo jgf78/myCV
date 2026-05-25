@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title th:text="${cv.name} + ' - CV'">Mi CV</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         /* Fondo degradado suave */
         body {
@@ -38,7 +40,20 @@
     </style>
 </head>
 <body>
-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+	    <div class="container">
+	        <a class="navbar-brand fw-bold" href="/">Julián Gómez Fernández</a>
+	
+	        <div class="navbar-nav ms-auto">
+	            <a class="nav-link active" href="/">CV</a>
+	            <a class="nav-link" href="/projects">Proyectos</a>
+	            <a class="nav-link" href="https://github.com/jgf78" target="_blank">
+	                GitHub
+	            </a>
+	        </div>
+	    </div>
+	</nav>
+	
     <div class="cv-container">
         <!-- HEADER con foto a la izquierda -->
         <header class="mb-4 row align-items-center">
@@ -109,7 +124,7 @@
                 </a>
             </p>
             <p>
-			    Correo electrónico
+			    Correo
 			    <a href="mailto:contacto@juliangomezfernandez.com?subject=Consulta%20Web">
 			         contacto@juliangomezfernandez.com
 			    </a>
