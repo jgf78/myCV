@@ -12,6 +12,7 @@ public class Cv {
     private String summary;
     private List<Experience> experience;
     private List<Education> education;
+    private List<Certification> certification;
     private List<String> skills;
     private List<Language> languages;
 
@@ -26,6 +27,13 @@ public class Cv {
     @Data
     public static class Education {
         private String degree;
+        private String institution;
+        private String period;
+    }
+    
+    @Data
+    public static class Certification {
+        private String name;
         private String institution;
         private String period;
     }

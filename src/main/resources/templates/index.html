@@ -78,6 +78,13 @@
                 </p>
             </div>
         </section>
+        
+        <section class="mb-4">
+            <h3>Certificaciones</h3>
+            <ul>
+               <li th:each="cert : ${cv.certification}" th:text="${cert.name} + ' - ' + ${cert.institution} + ' - ' + ${cert.period}">Certificación</li>
+            </ul>
+        </section>
 
         <section class="mb-4">
             <h3>Habilidades</h3>

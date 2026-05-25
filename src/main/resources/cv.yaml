@@ -41,6 +41,17 @@ education:
   - degree: "Técnico especialista en Informática de Gestión"
     institution: "IES Luis Vives (Leganés)"
     period: "1997 - 2000"
+    
+certification:
+  - name: "Microsoft Certified: Azure Fundamentals"
+    institution: "Microsoft"
+    period: "2025"
+  - name: "Google Cloud Digital Leader"
+    institution: "Google"
+    period: "2023 - 2026"   
+  - name: "Scrum Fundamentals Certified (SFC)"
+    institution: "Vabro.ai and VMEdu.com"
+    period: "2023"   
 
 skills:
   - "Java 11/17"
