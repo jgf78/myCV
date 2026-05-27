@@ -25,7 +25,10 @@ public class NotificationServiceImpl implements NotificationService {
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     @Override
-    public void sendVisitNotification(long visitNumber, String userAgent, String ip) {
+    public void sendVisitNotification(long visitNumber,
+                                       String userAgent,
+                                       String ip,
+                                       long monthlyVisits) {
 
         String formattedDate = ZonedDateTime
                 .now(ZoneId.of("Europe/Madrid"))
@@ -34,7 +37,8 @@ public class NotificationServiceImpl implements NotificationService {
         String shortUA = simplifyUserAgent(userAgent);
 
         String message =
-                "🔥 Nueva visita en la web #" + visitNumber + "\n\n"
+                "🔥 Nueva visita en la web #" + visitNumber + "\n"
+              + "📅 Visitas este mes: " + monthlyVisits + "\n\n"
               + "🕒 " + formattedDate + "\n"
               + "🌍 IP: " + ip + "\n"
               + "🧭 " + shortUA;
