@@ -27,6 +27,9 @@ sql:
 server:
   port: 8081
 
+jwt:
+  secret: P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1  
+  
 logging:
   file:
     path: ./target/
