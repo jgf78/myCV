@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.julian.cv.model.VisitRecord;
 import com.julian.cv.service.NotificationService;
+import com.julian.cv.service.WebVisitCounterService;
 import com.julian.cv.service.WebVisitService;
 
 import jakarta.servlet.Filter;
@@ -21,11 +22,14 @@ public class VisitFilter implements Filter {
 
     private final WebVisitService service;
     private final NotificationService notificationService;
+    private final WebVisitCounterService counterService;
 
     public VisitFilter(WebVisitService service,
-                       NotificationService notificationService) {
+                       NotificationService notificationService,
+                       WebVisitCounterService counterService) {
         this.service = service;
         this.notificationService = notificationService;
+        this.counterService = counterService;
     }
 
     @Override
@@ -38,6 +42,7 @@ public class VisitFilter implements Filter {
 
         String path = req.getRequestURI();
 
+        // 🚫 ignorar recursos estáticos
         if (path.startsWith("/css") ||
             path.startsWith("/js") ||
             path.startsWith("/images") ||
@@ -47,24 +52,36 @@ public class VisitFilter implements Filter {
             return;
         }
 
-        String userAgent = req.getHeader("User-Agent");
+        String userAgentRaw = req.getHeader("User-Agent");
         String referer = req.getHeader("Referer");
         String ip = getClientIp(req);
 
+        // 🧠 guardar visita
         service.registerVisit(new VisitRecord(
                 path,
-                userAgent,
+                userAgentRaw,
                 ip,
                 referer
         ));
 
+        // 📊 incrementar contador global
+        long visitNumber = counterService.incrementAndGet();
+
+        // 🔐 sesión (solo 1 notificación por usuario)
         HttpSession session = req.getSession(true);
 
         if (session.getAttribute("VISITED") == null) {
 
             session.setAttribute("VISITED", true);
 
-            notificationService.sendVisitNotification(userAgent, ip);
+            // 🧼 User-Agent más limpio
+            String userAgent = simplifyUserAgent(userAgentRaw);
+
+            notificationService.sendVisitNotification(
+                    visitNumber,
+                    userAgent,
+                    ip
+            );
         }
 
         chain.doFilter(request, response);
@@ -79,5 +96,17 @@ public class VisitFilter implements Filter {
         }
 
         return request.getRemoteAddr();
+    }
+
+    private String simplifyUserAgent(String ua) {
+
+        if (ua == null) return "Unknown";
+
+        if (ua.contains("Chrome")) return "Chrome";
+        if (ua.contains("Firefox")) return "Firefox";
+        if (ua.contains("Safari") && !ua.contains("Chrome")) return "Safari";
+        if (ua.contains("Edge")) return "Edge";
+
+        return "Other";
     }
 }

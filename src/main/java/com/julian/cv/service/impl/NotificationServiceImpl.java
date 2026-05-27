@@ -1,4 +1,5 @@
 package com.julian.cv.service.impl;
+
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +25,7 @@ public class NotificationServiceImpl implements NotificationService {
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     @Override
-    public void sendVisitNotification(String userAgent, String ip) {
+    public void sendVisitNotification(long visitNumber, String userAgent, String ip) {
 
         String formattedDate = ZonedDateTime
                 .now(ZoneId.of("Europe/Madrid"))
@@ -32,10 +33,11 @@ public class NotificationServiceImpl implements NotificationService {
 
         String shortUA = simplifyUserAgent(userAgent);
 
-        String message = "🔥 Nueva visita en la web\n\n"
-                + "🕒 " + formattedDate + "\n"
-                + "🌍 IP: " + ip + "\n"
-                + "🧭 " + shortUA;
+        String message =
+                "🔥 Nueva visita en la web #" + visitNumber + "\n\n"
+              + "🕒 " + formattedDate + "\n"
+              + "🌍 IP: " + ip + "\n"
+              + "🧭 " + shortUA;
 
         Map<String, Object> body = Map.of(
                 "message", message,
@@ -65,7 +67,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         if (ua.contains("Chrome")) browser = "Chrome";
         else if (ua.contains("Firefox")) browser = "Firefox";
-        else if (ua.contains("Safari")) browser = "Safari";
+        else if (ua.contains("Safari") && !ua.contains("Chrome")) browser = "Safari";
         else if (ua.contains("Edge")) browser = "Edge";
 
         if (ua.contains("Windows")) os = "Windows";
