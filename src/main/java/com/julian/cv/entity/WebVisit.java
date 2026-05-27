@@ -38,5 +38,14 @@ public class WebVisit {
 
     @Column(name = "visit_time")
     private LocalDateTime visitTime;
+    
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "region")
+    private String region;
 
 }

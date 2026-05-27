@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.julian.cv.model.GeoIpData;
 import com.julian.cv.service.NotificationService;
 
 @Service
@@ -28,19 +29,24 @@ public class NotificationServiceImpl implements NotificationService {
     public void sendVisitNotification(long visitNumber,
                                        String userAgent,
                                        String ip,
-                                       long monthlyVisits) {
+                                       long monthlyVisits, 
+                                       GeoIpData geo) {
 
         String formattedDate = ZonedDateTime
                 .now(ZoneId.of("Europe/Madrid"))
                 .format(FORMATTER);
 
         String shortUA = simplifyUserAgent(userAgent);
+        
+        String location = buildLocation(geo);
+        String flag = countryFlag(geo != null ? geo.country() : null);
 
         String message =
-                "🔥 Nueva visita en la web #" + visitNumber + "\n"
-              + "📅 Visitas este mes: " + monthlyVisits + "\n\n"
+                "🔥 Nueva visita en la web #" + visitNumber + "\n\n"
+              + "📊 Este mes: " + monthlyVisits + "\n\n"
               + "🕒 " + formattedDate + "\n"
               + "🌍 IP: " + ip + "\n"
+              + "📍 " + flag + " " + location + "\n"
               + "🧭 " + shortUA;
 
         Map<String, Object> body = Map.of(
@@ -81,5 +87,44 @@ public class NotificationServiceImpl implements NotificationService {
         else if (ua.contains("iPhone")) os = "iOS";
 
         return browser + " / " + os;
+    }
+    
+    private String buildLocation(GeoIpData geo) {
+
+        if (geo == null) return "Ubicación desconocida";
+
+        String city = geo.city();
+        String region = geo.region();
+        String country = geo.country();
+
+        StringBuilder sb = new StringBuilder();
+
+        if (city != null) sb.append(city);
+        if (region != null) sb.append(", ").append(region);
+        if (country != null) sb.append(" (").append(country).append(")");
+
+        String result = sb.toString();
+
+        return result.isBlank() ? "Ubicación desconocida" : result;
+    }
+    
+    private String countryFlag(String countryCode) {
+
+        if (countryCode == null) return "🌍";
+
+        return switch (countryCode.toUpperCase()) {
+            case "ES" -> "🇪🇸";
+            case "FR" -> "🇫🇷";
+            case "DE" -> "🇩🇪";
+            case "US" -> "🇺🇸";
+            case "GB" -> "🇬🇧";
+            case "IT" -> "🇮🇹";
+            case "PT" -> "🇵🇹";
+            case "NL" -> "🇳🇱";
+            case "MX" -> "🇲🇽";
+            case "AR" -> "🇦🇷";
+            case "BR" -> "🇧🇷";
+            default -> "🌍";
+        };
     }
 }

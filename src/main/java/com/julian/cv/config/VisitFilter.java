@@ -4,7 +4,9 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 
+import com.julian.cv.model.GeoIpData;
 import com.julian.cv.model.VisitRecord;
+import com.julian.cv.service.GeoIpService;
 import com.julian.cv.service.NotificationService;
 import com.julian.cv.service.WebVisitCounterService;
 import com.julian.cv.service.WebVisitMonthlyService;
@@ -25,15 +27,18 @@ public class VisitFilter implements Filter {
     private final NotificationService notificationService;
     private final WebVisitCounterService counterService;
     private final WebVisitMonthlyService counterMonthlyService;
+    private final GeoIpService geoIpService;
 
     public VisitFilter(WebVisitService service,
                        NotificationService notificationService,
                        WebVisitCounterService counterService,
-                       WebVisitMonthlyService counterMonthlyService) {
+                       WebVisitMonthlyService counterMonthlyService,
+                       GeoIpService geoIpService) {
         this.service = service;
         this.notificationService = notificationService;
         this.counterService = counterService;
         this.counterMonthlyService = counterMonthlyService;
+        this.geoIpService = geoIpService;
     }
 
     @Override
@@ -49,28 +54,38 @@ public class VisitFilter implements Filter {
         // 🚫 ignorar estáticos
         if (isStatic(path)) {
             chain.doFilter(request, response);
-            return;  
+            return;
         }
-        
+
         String userAgentRaw = req.getHeader("User-Agent");
         String referer = req.getHeader("Referer");
         String ip = getClientIp(req);
 
-        // 📦 guardar visita detallada (LOG)
+        // 🌍 GeoIP (puede fallar, por eso lo usamos defensivo)
+        GeoIpData geo = geoIpService.getGeoData(ip);
+
+        String country = geo != null ? geo.country() : null;
+        String city = geo != null ? geo.city() : null;
+        String region = geo != null ? geo.region() : null;
+
+        // 📦 guardar visita
         service.registerVisit(new VisitRecord(
                 path,
                 userAgentRaw,
                 ip,
-                referer
+                referer,
+                country,
+                city,
+                region
         ));
 
-        // 📊 contador global SIEMPRE
+        // 📊 contador global
         long visitNumber = counterService.incrementAndGet();
 
-        // 📅 contador mensual SIEMPRE
+        // 📅 contador mensual
         counterMonthlyService.registerVisit();
 
-        // 🔐 notificación solo primera vez por sesión
+        // 🔐 solo 1 notificación por sesión
         HttpSession session = req.getSession(true);
 
         if (session.getAttribute("VISITED") == null) {
@@ -83,13 +98,14 @@ public class VisitFilter implements Filter {
                     visitNumber,
                     simplifyUserAgent(userAgentRaw),
                     ip,
-                    monthlyVisits
+                    monthlyVisits,
+                    geo
             );
         }
 
         chain.doFilter(request, response);
     }
-    
+
     private String getClientIp(HttpServletRequest request) {
 
         String xfHeader = request.getHeader("X-Forwarded-For");
@@ -112,12 +128,12 @@ public class VisitFilter implements Filter {
 
         return "Other";
     }
-    
+
     private boolean isStatic(String path) {
         return path.startsWith("/css")
-            || path.startsWith("/js")
-            || path.startsWith("/images")
-            || path.startsWith("/webjars")
-            || path.matches(".*\\.(png|jpg|jpeg|gif|svg|ico|css|js)$");
+                || path.startsWith("/js")
+                || path.startsWith("/images")
+                || path.startsWith("/webjars")
+                || path.matches(".*\\.(png|jpg|jpeg|gif|svg|ico|css|js)$");
     }
 }
