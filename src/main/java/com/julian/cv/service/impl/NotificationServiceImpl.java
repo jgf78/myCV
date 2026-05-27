@@ -1,5 +1,6 @@
 package com.julian.cv.service.impl;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
@@ -25,7 +26,9 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void sendVisitNotification(String userAgent, String ip) {
 
-        String formattedDate = LocalDateTime.now().format(FORMATTER);
+        String formattedDate = ZonedDateTime
+                .now(ZoneId.of("Europe/Madrid"))
+                .format(FORMATTER);
 
         String shortUA = simplifyUserAgent(userAgent);
 
