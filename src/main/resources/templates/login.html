@@ -176,6 +176,14 @@ body {
             Admin Login
         </h3>
 
+		<div th:if="${param.error}"
+		     class="alert alert-danger text-center">
+		
+		    <i class="bi bi-exclamation-triangle me-1"></i>
+		    Usuario o contraseña incorrectos
+		
+		</div>
+
         <form method="post" action="/auth/login">
 
             <div class="mb-3">
@@ -196,10 +204,10 @@ body {
                        required>
             </div>
 
-            <button class="btn btn-dark w-100 btn-login">
-                Entrar
-                <i class="bi bi-box-arrow-in-right ms-1"></i>
-            </button>
+            <button class="btn btn-dark w-100 btn-login" type="submit">
+			    Entrar
+			    <i class="bi bi-box-arrow-in-right ms-1"></i>
+			</button>
 
         </form>
 

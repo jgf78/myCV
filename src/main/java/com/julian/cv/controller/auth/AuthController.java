@@ -1,13 +1,15 @@
 package com.julian.cv.controller.auth;
 
-import java.util.Map;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.julian.cv.service.auth.JwtService;
 
-@RestController
+import jakarta.servlet.http.HttpSession;
+
+@Controller
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -18,17 +20,21 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public String login(
+            @RequestParam String username,
+            @RequestParam String password,
+            HttpSession session) {
 
-        if (!"admin".equals(request.username()) || !"1234".equals(request.password())) {
-            return ResponseEntity.status(401).body("Invalid credentials");
+        if ("admin".equals(username) && "1234".equals(password)) {
+
+            String token = jwtService.generateToken(username);
+
+            session.setAttribute("JWT", token);
+
+            return "redirect:/admin/dashboard";
         }
 
-        String token = jwtService.generateToken(request.username());
-
-        return ResponseEntity.ok(Map.of(
-                "token", token
-        ));
+        return "redirect:/login?error=true";
     }
 
     public record LoginRequest(String username, String password) {}

@@ -1,7 +1,10 @@
 package com.julian.cv.config;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -11,6 +14,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -22,28 +26,76 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+        String path = request.getRequestURI();
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        // ✅ rutas públicas
+        if (isPublic(path)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-            String token = authHeader.substring(7);
+        // 🔒 proteger admin
+        if (path.startsWith("/admin")) {
+
+            HttpSession session = request.getSession(false);
+
+            if (session == null) {
+                response.sendRedirect("/login");
+                return;
+            }
+
+            String token = (String) session.getAttribute("JWT");
+
+            if (token == null) {
+                response.sendRedirect("/login");
+                return;
+            }
 
             try {
+                // 🔓 validar token
                 String username = jwtService.extractUsername(token);
 
+                // ✅ CLAVE: marcar como autenticado en Spring Security
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(
+                                username,
+                                null,
+                                List.of()
+                        );
+
+                SecurityContextHolder.getContext().setAuthentication(auth);
+
+                // opcional: para Thymeleaf o uso manual
                 request.setAttribute("user", username);
 
             } catch (Exception e) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+                SecurityContextHolder.clearContext();
+                session.invalidate();
+
+                response.sendRedirect("/login");
                 return;
             }
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private boolean isPublic(String path) {
+
+        return path.equals("/")
+                || path.equals("/login")
+                || path.equals("/auth/login")
+                || path.startsWith("/css")
+                || path.startsWith("/js")
+                || path.startsWith("/images")
+                || path.startsWith("/webjars")
+                || path.matches(".*\\.(png|jpg|jpeg|gif|svg|ico|css|js)$");
     }
 }
