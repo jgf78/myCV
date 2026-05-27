@@ -49,3 +49,18 @@ projects:
       - "Spring Boot"
       - "Google Calendar API"
     github: "https://github.com/jgf78/calendar"
+
+  - name: "MyCV"
+      description: >
+          La aplicación que estás viendo... donde se pretende mostrar mi CV de una forma más llamativa asi como mostrar mis demás proyectos. 
+      features:
+          - "Módulo Admin para la gestión de la web"
+          - "portfolio de las applicaciones que he hecho"  
+      technologies:
+        - "Java 17"
+        - "Spring Boot"
+        - "PostgreSQL"
+        - "Docker"
+        - "Spring Security y JWT"
+        - "Thymeleaf"
+      github: "https://github.com/jgf78/myCV"        
