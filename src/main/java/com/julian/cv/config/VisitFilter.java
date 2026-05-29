@@ -18,6 +18,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Component
@@ -34,6 +35,7 @@ public class VisitFilter implements Filter {
                        WebVisitCounterService counterService,
                        WebVisitMonthlyService counterMonthlyService,
                        GeoIpService geoIpService) {
+
         this.service = service;
         this.notificationService = notificationService;
         this.counterService = counterService;
@@ -48,27 +50,41 @@ public class VisitFilter implements Filter {
             throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
 
         String path = req.getRequestURI();
 
-        // 🚫 ignorar estáticos
+        // 🚫 ignorar recursos estáticos
         if (isStatic(path)) {
             chain.doFilter(request, response);
             return;
         }
 
+        // 🤖 ignorar robots.txt
+        if ("/robots.txt".equals(path)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         String userAgentRaw = req.getHeader("User-Agent");
+
+        // 🤖 ignorar bots/scanners
+        if (isBot(path, userAgentRaw)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         String referer = req.getHeader("Referer");
         String ip = getClientIp(req);
 
-        // 🌍 GeoIP
+        // 🌍 GeoIP SOLO para tráfico real
         GeoIpData geo = geoIpService.getGeoData(ip);
 
         String country = geo != null ? geo.country() : null;
         String city = geo != null ? geo.city() : null;
         String region = geo != null ? geo.region() : null;
 
-        // 📦 SIEMPRE guardamos la visita (esto está bien por request)
+        // 📦 guardar navegación real
         service.registerVisit(new VisitRecord(
                 path,
                 userAgentRaw,
@@ -79,22 +95,23 @@ public class VisitFilter implements Filter {
                 region
         ));
 
-        // 🔐 SOLO 1 VISITA POR SESIÓN
+        // 🔐 contar SOLO 1 visita por sesión
         HttpSession session = req.getSession(true);
 
         if (session.getAttribute("VISIT_COUNTED") == null) {
 
             session.setAttribute("VISIT_COUNTED", true);
 
-            // 📊 contador global (solo 1 vez)
+            // 📊 contador global
             long visitNumber = counterService.incrementAndGet();
 
-            // 📅 contador mensual (solo 1 vez)
+            // 📅 contador mensual
             counterMonthlyService.registerVisit();
 
-            // 🔔 notificación SOLO primera vez
-            long monthlyVisits = counterMonthlyService.getCurrentMonthVisits();
+            long monthlyVisits =
+                    counterMonthlyService.getCurrentMonthVisits();
 
+            // 🔔 notificación
             notificationService.sendVisitNotification(
                     visitNumber,
                     simplifyUserAgent(userAgentRaw),
@@ -120,21 +137,74 @@ public class VisitFilter implements Filter {
 
     private String simplifyUserAgent(String ua) {
 
-        if (ua == null) return "Unknown";
+        if (ua == null) {
+            return "Unknown";
+        }
 
-        if (ua.contains("Chrome")) return "Chrome";
-        if (ua.contains("Firefox")) return "Firefox";
-        if (ua.contains("Safari") && !ua.contains("Chrome")) return "Safari";
-        if (ua.contains("Edge")) return "Edge";
+        if (ua.contains("Chrome")) {
+            return "Chrome";
+        }
+
+        if (ua.contains("Firefox")) {
+            return "Firefox";
+        }
+
+        if (ua.contains("Safari") && !ua.contains("Chrome")) {
+            return "Safari";
+        }
+
+        if (ua.contains("Edge")) {
+            return "Edge";
+        }
 
         return "Other";
     }
 
     private boolean isStatic(String path) {
+
         return path.startsWith("/css")
                 || path.startsWith("/js")
                 || path.startsWith("/images")
                 || path.startsWith("/webjars")
                 || path.matches(".*\\.(png|jpg|jpeg|gif|svg|ico|css|js)$");
+    }
+
+    private boolean isBot(String path, String userAgent) {
+
+        if (path == null) {
+            return true;
+        }
+
+        String p = path.toLowerCase();
+
+        // 🤖 scanners típicos
+        if (p.contains("wp-admin")
+                || p.contains("wp-login")
+                || p.contains(".env")
+                || p.contains("phpinfo")
+                || p.contains("xmlrpc")
+                || p.contains("boaform")
+                || p.contains("cgi-bin")
+                || p.contains("vendor")
+                || p.contains("alvin9999")) {
+
+            return true;
+        }
+
+        // si no hay user-agent, no asumimos bot
+        if (userAgent == null) {
+            return false;
+        }
+
+        String ua = userAgent.toLowerCase();
+
+        return ua.contains("bot")
+                || ua.contains("crawler")
+                || ua.contains("spider")
+                || ua.contains("scanner")
+                || ua.contains("curl")
+                || ua.contains("wget")
+                || ua.contains("python")
+                || ua.contains("scrapy");
     }
 }
