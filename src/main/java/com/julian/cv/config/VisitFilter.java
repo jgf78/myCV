@@ -65,6 +65,12 @@ public class VisitFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+        
+        // 🤖 ignorar sitemap.xml
+        if (path.equals("/sitemap.xml")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         String userAgentRaw = req.getHeader("User-Agent");
 
