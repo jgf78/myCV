@@ -61,14 +61,14 @@ public class VisitFilter implements Filter {
         String referer = req.getHeader("Referer");
         String ip = getClientIp(req);
 
-        // 🌍 GeoIP (puede fallar, por eso lo usamos defensivo)
+        // 🌍 GeoIP
         GeoIpData geo = geoIpService.getGeoData(ip);
 
         String country = geo != null ? geo.country() : null;
         String city = geo != null ? geo.city() : null;
         String region = geo != null ? geo.region() : null;
 
-        // 📦 guardar visita
+        // 📦 SIEMPRE guardamos la visita (esto está bien por request)
         service.registerVisit(new VisitRecord(
                 path,
                 userAgentRaw,
@@ -79,19 +79,20 @@ public class VisitFilter implements Filter {
                 region
         ));
 
-        // 📊 contador global
-        long visitNumber = counterService.incrementAndGet();
-
-        // 📅 contador mensual
-        counterMonthlyService.registerVisit();
-
-        // 🔐 solo 1 notificación por sesión
+        // 🔐 SOLO 1 VISITA POR SESIÓN
         HttpSession session = req.getSession(true);
 
-        if (session.getAttribute("VISITED") == null) {
+        if (session.getAttribute("VISIT_COUNTED") == null) {
 
-            session.setAttribute("VISITED", true);
+            session.setAttribute("VISIT_COUNTED", true);
 
+            // 📊 contador global (solo 1 vez)
+            long visitNumber = counterService.incrementAndGet();
+
+            // 📅 contador mensual (solo 1 vez)
+            counterMonthlyService.registerVisit();
+
+            // 🔔 notificación SOLO primera vez
             long monthlyVisits = counterMonthlyService.getCurrentMonthVisits();
 
             notificationService.sendVisitNotification(

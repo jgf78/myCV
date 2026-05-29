@@ -27,11 +27,14 @@ public class WebVisitCounterServiceImpl implements WebVisitCounterService {
                 .orElse(null);
 
         if (counter == null) {
+
             counter = WebVisitCounter.builder()
                     .totalVisits(1L)
                     .lastVisit(LocalDateTime.now())
                     .build();
+
         } else {
+
             counter.setTotalVisits(counter.getTotalVisits() + 1);
             counter.setLastVisit(LocalDateTime.now());
         }
@@ -39,5 +42,15 @@ public class WebVisitCounterServiceImpl implements WebVisitCounterService {
         repository.save(counter);
 
         return counter.getTotalVisits();
+    }
+
+    @Override
+    public long getCurrentCount() {
+
+        return repository.findAll()
+                .stream()
+                .findFirst()
+                .map(WebVisitCounter::getTotalVisits)
+                .orElse(0L);
     }
 }
