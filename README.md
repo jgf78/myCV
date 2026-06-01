@@ -6,15 +6,20 @@ MyCV es una aplicación web desarrollada con Spring Boot + Java 17 que actúa co
 🌐 Portfolio personal profesional
 
 📊 Sistema de analítica de visitas estilo Google Analytics light
+
 🔐 Panel de administración con login JWT
+
 🤖 Sistema de detección de bots y ataques automatizados
+
 🌍 Geolocalización de visitantes en tiempo real
 
 🚀 Características principales
 ==============================
 
 ⚡ Backend con Spring Boot 3 + Java 17
+
 🎨 Frontend con Thymeleaf + Bootstrap 5
+
 🔐 Login de administración con JWT + sesión
 
 📊 Dashboard con métricas en tiempo real:
