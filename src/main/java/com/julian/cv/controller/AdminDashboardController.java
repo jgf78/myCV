@@ -22,6 +22,16 @@ public class AdminDashboardController {
         model.addAttribute("totalVisits", counterService.getCurrentCount());
 
         model.addAttribute("lastVisits", visitService.getLastVisits(10));
+        
+        // 🌍 gráfico histórico por países
+        model.addAttribute(
+                "countryVisits",
+                visitService.getVisitsByCountry());
+
+        // 📅 gráfico mensual por países
+        model.addAttribute(
+                "monthlyCountryVisits",
+                visitService.getMonthlyVisitsByCountry());
 
         return "dashboard";
     }

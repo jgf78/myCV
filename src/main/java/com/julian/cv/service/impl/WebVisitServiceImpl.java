@@ -1,5 +1,6 @@
 package com.julian.cv.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.julian.cv.entity.WebVisit;
+import com.julian.cv.model.CountryVisitResponse;
 import com.julian.cv.model.VisitRecord;
 import com.julian.cv.model.WebVisitResponse;
 import com.julian.cv.repository.WebVisitRepository;
@@ -48,7 +50,33 @@ public class WebVisitServiceImpl implements WebVisitService {
                 .map(this::toResponse)
                 .toList();
     }
-    
+
+    @Override
+    public List<CountryVisitResponse> getVisitsByCountry() {
+
+        return repository.findVisitsByCountry()
+                .stream()
+                .map(country -> new CountryVisitResponse(
+                        country.getCountry(),
+                        country.getVisits()))
+                .toList();
+    }
+
+    @Override
+    public List<CountryVisitResponse> getMonthlyVisitsByCountry() {
+
+        LocalDate now = LocalDate.now();
+
+        return repository.findMonthlyVisitsByCountry(
+                        now.getYear(),
+                        now.getMonthValue())
+                .stream()
+                .map(country -> new CountryVisitResponse(
+                        country.getCountry(),
+                        country.getVisits()))
+                .toList();
+    }
+
     private WebVisitResponse toResponse(WebVisit v) {
 
         return new WebVisitResponse(
