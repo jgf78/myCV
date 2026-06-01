@@ -59,6 +59,12 @@ public class VisitFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+        
+        // 🚫 NO registrar admin ni login
+        if (isInternalPath(path)) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         // 🤖 ignorar robots.txt
         if ("/robots.txt".equals(path)) {
@@ -196,6 +202,8 @@ public class VisitFilter implements Filter {
                 || p.contains("alvin9999")
                 || p.contains("struts")
                 || p.contains("invoker")
+                || p.contains("ping_isolation")
+                || p.contains("proto_s")
                 || p.contains("security.txt")) {
 
             return true;
@@ -216,5 +224,17 @@ public class VisitFilter implements Filter {
                 || ua.contains("wget")
                 || ua.contains("python")
                 || ua.contains("scrapy");
+    }
+    
+    private boolean isInternalPath(String path) {
+
+        if (path == null) return true;
+
+        String p = path.toLowerCase();
+
+        return p.startsWith("/admin")
+                || p.startsWith("/auth")
+                || p.equals("/login")
+                || p.startsWith("/error");
     }
 }
