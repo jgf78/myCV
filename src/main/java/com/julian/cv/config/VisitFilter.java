@@ -186,13 +186,17 @@ public class VisitFilter implements Filter {
         // 🤖 scanners típicos
         if (p.contains("wp-admin")
                 || p.contains("wp-login")
+                || p.contains(".git")
                 || p.contains(".env")
                 || p.contains("phpinfo")
                 || p.contains("xmlrpc")
                 || p.contains("boaform")
                 || p.contains("cgi-bin")
                 || p.contains("vendor")
-                || p.contains("alvin9999")) {
+                || p.contains("alvin9999")
+                || p.contains("struts")
+                || p.contains("invoker")
+                || p.contains("security.txt")) {
 
             return true;
         }
