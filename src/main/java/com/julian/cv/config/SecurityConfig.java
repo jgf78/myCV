@@ -36,6 +36,12 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
 
+                        .requestMatchers(
+                                "/templates/**",
+                                "/WEB-INF/**",
+                                "/META-INF/**"
+                        ).denyAll()
+                        
                         .requestMatchers("/admin/**").authenticated()
 
                         .anyRequest().permitAll()
