@@ -87,13 +87,21 @@ Ejemplos filtrados automáticamente:
 ==============
 
 Java 17           -> Backend
+
 Spring Boot 3.x   -> Framework
+
 Spring Security   -> Seguridad
+
 JWT               -> Auth
+
 Thymeleaf         -> Frontend
+
 Bootstrap 5       -> UI
+
 Chart.js          -> Gráficas
+
 Maven             -> Build tool
+
 Docker            -> Deploy
 
 
