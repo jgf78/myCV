@@ -77,14 +77,15 @@ Se filtran automáticamente:
 - Bots de indexación agresiva
 - Intentos de acceso a rutas sensibles
 
-Ejemplos bloqueados:
-/wp-admin/install.php
-/.env
-/phpinfo.php
-/.git/config
-/struts/webconsole.html
-/robots.txt (opcional análisis)
-/ping_isolation_*
+### Ejemplos bloqueados:
+
+- /wp-admin/install.php  
+- /.env  
+- /phpinfo.php  
+- /.git/config  
+- /struts/webconsole.html  
+- /robots.txt  
+- /ping_isolation_*  
 
 
 ---
@@ -109,32 +110,32 @@ Ejemplos bloqueados:
 
 mycv/
 ├── controller/
-│ ├── auth/ # Login + JWT
-│ ├── AdminDashboard # Panel admin
+│   ├── auth/               # Login + JWT
+│   ├── AdminDashboard      # Panel admin
 │
 ├── service/
-│ ├── WebVisitService
-│ ├── GeoIpService
-│ ├── JwtService
+│   ├── WebVisitService
+│   ├── GeoIpService
+│   ├── JwtService
 │
 ├── config/
-│ ├── SecurityConfig
-│ ├── JwtFilter
-│ ├── VisitFilter
+│   ├── SecurityConfig
+│   ├── JwtFilter
+│   ├── VisitFilter
 │
 ├── entity/
-│ ├── WebVisit
-│ ├── WebVisitCounter
+│   ├── WebVisit
+│   ├── WebVisitCounter
 │
 ├── repository/
-│ ├── WebVisitRepository
+│   ├── WebVisitRepository
 │
 ├── templates/
-│ ├── login.html
-│ ├── dashboard.html
+│   ├── login.html
+│   ├── dashboard.html
 │
 └── resources/
-└── application.yml
+    └── application.yml
 
 
 ---
@@ -143,7 +144,6 @@ mycv/
 
 ### 1️⃣ Clonar repositorio
 
-```bash
 git clone https://github.com/jgf78/mycv.git
 cd mycv
 
