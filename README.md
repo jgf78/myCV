@@ -153,10 +153,12 @@ mvn spring-boot:run
 ========
 
 Julián Gómez Fernández
-💻 Java Developer
-⚙️ Spring Boot · Docker · CI/CD
-📊 Backend + observabilidad
 
+💻 Java Developer
+
+⚙️ Spring Boot · Docker · CI/CD
+
+📊 Backend + observabilidad
 
 📄 Licencia
 ===========
