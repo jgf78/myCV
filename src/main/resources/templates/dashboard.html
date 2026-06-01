@@ -2,86 +2,86 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <style>
-        body {
-            background: linear-gradient(to right, #0f172a, #1e293b);
-            color: white;
-            min-height: 100vh;
-        }
+<style>
+body {
+    background: linear-gradient(to right, #0f172a, #1e293b);
+    color: white;
+    min-height: 100vh;
+}
 
-        .box {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 40px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
+.box {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
 
-        .layout {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+.layout {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-        .left {
-            flex: 2;
-            min-width: 500px;
-        }
+.left {
+    flex: 2;
+    min-width: 500px;
+}
 
-        .right {
-            flex: 1;
-            min-width: 350px;
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 15px;
-        }
+.right {
+    flex: 1;
+    min-width: 350px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+}
 
-        .stats {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            margin-bottom: 30px;
-        }
+.stats {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
 
-        .stat-card {
-            flex: 1;
-            min-width: 200px;
-            background: rgba(255,255,255,0.08);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-        }
+.stat-card {
+    flex: 1;
+    min-width: 200px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-        }
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
 
-        table {
-            font-size: 0.85rem;
-        }
+table {
+    font-size: 0.85rem;
+}
 
-        .table-container {
-            margin-top: 25px;
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
-            border-radius: 15px;
-        }
+.table-container {
+    margin-top: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 15px;
+}
 
-        .chart-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-    </style>
+.chart-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
@@ -90,9 +90,7 @@
 
     <h1>🔥 Admin Dashboard</h1>
 
-    <p class="mt-3">
-        Panel de control de visitas y actividad del sitio
-    </p>
+    <p class="mt-3">Panel de control de visitas y actividad del sitio</p>
 
     <!-- 📊 STATS -->
     <div class="stats">
@@ -112,7 +110,7 @@
     <!-- LAYOUT -->
     <div class="layout">
 
-        <!-- LEFT: TABLE -->
+        <!-- LEFT -->
         <div class="left">
 
             <div class="table-container">
@@ -124,43 +122,45 @@
                     <table class="table table-dark table-striped table-hover">
 
                         <thead>
-                        <tr>
-                            <th>Ruta</th>
-                            <th>IP</th>
-                            <th>País</th>
-                            <th>Ciudad</th>
-                            <th>Fecha</th>
-                        </tr>
+                            <tr>
+                                <th>Ruta</th>
+                                <th>IP</th>
+                                <th>País</th>
+                                <th>Ciudad</th>
+                                <th>Fecha</th>
+                            </tr>
                         </thead>
 
                         <tbody>
-                        <tr th:each="v : ${lastVisits}">
-                            <td th:text="${v.path}"></td>
-                            <td th:text="${v.ip}"></td>
+                            <tr th:each="v : ${lastVisits}">
+                                <td th:text="${v.path}"></td>
+                                <td th:text="${v.ip}"></td>
 
-                            <td>
-                                <img th:src="@{'https://flagcdn.com/24x18/' + ${#strings.toLowerCase(v.country)} + '.png'}"
-                                     width="24"
-                                     class="me-2"
-                                     alt="flag"/>
-                                <span th:text="${v.country}"></span>
-                            </td>
+                                <td>
+                                    <img th:src="@{'https://flagcdn.com/24x18/' + ${#strings.toLowerCase(v.country)} + '.png'}"
+                                        width="24"
+                                        class="me-2"
+                                        alt="flag" />
+                                    <span th:text="${v.country}"></span>
+                                </td>
 
-                            <td th:text="${v.city}"></td>
+                                <td th:text="${v.city}"></td>
 
-                            <td th:text="${#temporals.format(v.visitTime, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                        </tr>
+                                <td th:text="${#temporals.format(v.visitTime, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                            </tr>
                         </tbody>
 
                     </table>
 
                 </div>
             </div>
+
         </div>
 
-        <!-- RIGHT: CHART -->
+        <!-- RIGHT -->
         <div class="right">
 
+            <!-- 🌍 COUNTRY -->
             <h5>🌍 Visitas por país</h5>
 
             <canvas id="countryChart"></canvas>
@@ -169,6 +169,13 @@
                 <button class="btn btn-outline-light btn-sm" onclick="loadTotal()">Total</button>
                 <button class="btn btn-outline-light btn-sm" onclick="loadMonthly()">Mensual</button>
             </div>
+
+            <hr class="text-light">
+
+            <!-- 🍩 DEVICE DONUT -->
+            <h5>📱 Dispositivos</h5>
+
+            <canvas id="deviceChart"></canvas>
 
         </div>
 
@@ -186,6 +193,11 @@
 <script>
 
 let chart;
+let deviceChart;
+
+/* =========================
+   🌍 COUNTRY CHART
+========================= */
 
 function renderChart(data) {
 
@@ -229,13 +241,64 @@ async function loadMonthly() {
     renderChart(data);
 }
 
+/* =========================
+   🍩 DEVICE DONUT
+========================= */
+
+function renderDeviceChart(data) {
+
+    const labels = data.map(d => d.device);
+    const values = data.map(d => d.visits);
+
+    if (deviceChart) deviceChart.destroy();
+
+    deviceChart = new Chart(document.getElementById("deviceChart"), {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: values,
+                backgroundColor: [
+                    '#3b82f6', // desktop
+                    '#10b981', // mobile
+                    '#f59e0b'  // tablet
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        }
+    });
+}
+
+async function loadDevices() {
+    const res = await fetch('/admin/api/devices');
+    const data = await res.json();
+    renderDeviceChart(data);
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
 function logout() {
     localStorage.removeItem("jwt");
     window.location.href = "/login";
 }
 
-// init
+/* =========================
+   INIT
+========================= */
+
 loadTotal();
+loadDevices();
 
 </script>
 

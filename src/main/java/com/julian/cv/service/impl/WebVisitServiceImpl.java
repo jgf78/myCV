@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.julian.cv.entity.WebVisit;
 import com.julian.cv.model.CountryVisitResponse;
+import com.julian.cv.model.DeviceStatsResponse;
 import com.julian.cv.model.VisitRecord;
 import com.julian.cv.model.WebVisitResponse;
 import com.julian.cv.repository.WebVisitRepository;
@@ -89,5 +90,56 @@ public class WebVisitServiceImpl implements WebVisitService {
                 v.getReferer(),
                 v.getVisitTime()
         );
+    }
+
+    @Override
+    public List<DeviceStatsResponse> getDeviceStats() {
+
+        List<WebVisit> visits = repository.findAll();
+
+        long desktop = 0;
+        long mobile = 0;
+        long tablet = 0;
+
+        for (WebVisit v : visits) {
+
+            String ua = v.getUserAgent();
+            String device = detectDevice(ua);
+
+            switch (device) {
+                case "Desktop" -> desktop++;
+                case "Mobile" -> mobile++;
+                case "Tablet" -> tablet++;
+            }
+        }
+
+        return List.of(
+                new DeviceStatsResponse("Desktop", desktop),
+                new DeviceStatsResponse("Mobile", mobile),
+                new DeviceStatsResponse("Tablet", tablet)
+        );
+    }
+    
+    private String detectDevice(String ua) {
+
+        if (ua == null) return "Desktop";
+
+        ua = ua.toLowerCase();
+
+        // 📱 Mobile
+        if (ua.contains("iphone") ||
+            ua.contains("android") ||
+            ua.contains("mobile")) {
+            return "Mobile";
+        }
+
+        // 📟 Tablet
+        if (ua.contains("ipad") ||
+            ua.contains("tablet")) {
+            return "Tablet";
+        }
+
+        // 💻 Default
+        return "Desktop";
     }
 }

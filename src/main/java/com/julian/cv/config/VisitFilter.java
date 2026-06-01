@@ -204,6 +204,9 @@ public class VisitFilter implements Filter {
                 || p.contains("invoker")
                 || p.contains("ping_isolation")
                 || p.contains("proto_s")
+                || p.contains("netskope")
+                || p.contains("rbi-dialog")
+                || p.contains("expired-tab")
                 || p.contains("security.txt")) {
 
             return true;
