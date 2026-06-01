@@ -136,8 +136,7 @@ mycv/
 │
 └── resources/
     └── application.yml
-
-
+    
 ⚙️ Configuración local
 ======================
 
