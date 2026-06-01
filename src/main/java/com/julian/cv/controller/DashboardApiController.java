@@ -3,9 +3,11 @@ package com.julian.cv.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.julian.cv.model.CountryVisitResponse;
+import com.julian.cv.model.DeviceStatsResponse;
 import com.julian.cv.service.WebVisitService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,5 +28,11 @@ public class DashboardApiController {
     public List<CountryVisitResponse> monthlyCountries() {
 
         return visitService.getMonthlyVisitsByCountry();
+    }
+    
+    @GetMapping("/admin/api/devices")
+    @ResponseBody
+    public List<DeviceStatsResponse> getDevices() {
+        return visitService.getDeviceStats();
     }
 }
