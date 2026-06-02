@@ -39,7 +39,11 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/templates/**",
                                 "/WEB-INF/**",
-                                "/META-INF/**"
+                                "/META-INF/**",
+                                "/.env",
+                                "/.git/**",
+                                "/wp-admin/**",
+                                "/wp-login.php"
                         ).denyAll()
                         
                         .requestMatchers("/admin/**").authenticated()

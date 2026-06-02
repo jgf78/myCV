@@ -18,7 +18,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Component
@@ -50,7 +49,6 @@ public class VisitFilter implements Filter {
             throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
 
         String path = req.getRequestURI();
 
@@ -205,6 +203,7 @@ public class VisitFilter implements Filter {
                 || p.contains("ping_isolation")
                 || p.contains("proto_s")
                 || p.contains("netskope")
+                || p.contains("/templates/")
                 || p.contains("rbi-dialog")
                 || p.contains("expired-tab")
                 || p.contains("security.txt")) {
@@ -212,6 +211,11 @@ public class VisitFilter implements Filter {
             return true;
         }
 
+        // heurística
+        if (p.matches("^/[a-zA-Z0-9]{8,}$")) {
+            return true;
+        }
+        
         // si no hay user-agent, no asumimos bot
         if (userAgent == null) {
             return false;
