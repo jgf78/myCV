@@ -3,10 +3,10 @@ package com.julian.cv.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.julian.cv.model.CountryVisitResponse;
+import com.julian.cv.model.DailyVisitResponse;
 import com.julian.cv.model.DeviceStatsResponse;
 import com.julian.cv.service.WebVisitService;
 
@@ -31,8 +31,12 @@ public class DashboardApiController {
     }
     
     @GetMapping("/admin/api/devices")
-    @ResponseBody
     public List<DeviceStatsResponse> getDevices() {
         return visitService.getDeviceStats();
+    }
+    
+    @GetMapping("/admin/api/visits/daily")
+    public List<DailyVisitResponse> getDailyVisits() {
+        return visitService.getDailyVisitsCurrentMonth();
     }
 }

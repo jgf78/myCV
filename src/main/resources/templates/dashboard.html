@@ -81,6 +81,12 @@ table {
     gap: 10px;
     margin-top: 15px;
 }
+
+#dailyVisitsChart {
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+}
 </style>
 </head>
 
@@ -106,6 +112,24 @@ table {
         </div>
 
     </div>
+    
+	<!-- 📈 VISITAS DIARIAS -->
+	<div class="table-container mb-4">
+	
+	    <div class="d-flex justify-content-between align-items-center mb-3">
+	
+	        <h5 class="mb-0">📈 Visitas diarias del mes actual</h5>
+	
+	        <button class="btn btn-sm btn-outline-primary"
+	                onclick="loadDailyVisits()">
+	            🔄 Recargar
+	        </button>
+	
+	    </div>
+	
+	    <canvas id="dailyVisitsChart" height="90"></canvas>
+	
+	</div>
 
     <!-- LAYOUT -->
     <div class="layout">
@@ -194,6 +218,7 @@ table {
 
 let chart;
 let deviceChart;
+let dailyVisitsChart;
 
 /* =========================
    🌍 COUNTRY CHART
@@ -299,6 +324,73 @@ function logout() {
 
 loadTotal();
 loadDevices();
+loadDailyVisits();
+
+/* =========================
+   📈 DAILY VISITS
+========================= */
+
+function renderDailyVisitsChart(data) {
+
+    const labels = data.map(d => d.day);
+    const values = data.map(d => d.visits);
+
+    if (dailyVisitsChart) {
+        dailyVisitsChart.destroy();
+    }
+
+    dailyVisitsChart = new Chart(
+        document.getElementById("dailyVisitsChart"),
+        {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Visitas',
+                    data: values,
+                    borderColor: '#dc2626',
+                    backgroundColor: '#dc2626',
+                    pointBackgroundColor: '#dc2626',
+                    pointBorderColor: '#dc2626',
+                    pointRadius: 5,
+                    borderWidth: 3,
+                    tension: 0.3,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#000'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#000'
+                        }
+                    }
+                }
+            }
+        }
+    );
+}
+
+async function loadDailyVisits() {
+
+    const res = await fetch('/admin/api/visits/daily');
+
+    const data = await res.json();
+
+    renderDailyVisitsChart(data);
+}
 
 </script>
 

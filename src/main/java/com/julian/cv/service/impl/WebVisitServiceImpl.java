@@ -2,16 +2,21 @@ package com.julian.cv.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.julian.cv.entity.WebVisit;
 import com.julian.cv.model.CountryVisitResponse;
+import com.julian.cv.model.DailyVisitResponse;
 import com.julian.cv.model.DeviceStatsResponse;
 import com.julian.cv.model.VisitRecord;
 import com.julian.cv.model.WebVisitResponse;
+import com.julian.cv.repository.DailyVisitProjection;
 import com.julian.cv.repository.WebVisitRepository;
 import com.julian.cv.service.WebVisitService;
 
@@ -141,5 +146,35 @@ public class WebVisitServiceImpl implements WebVisitService {
 
         // 💻 Default
         return "Desktop";
+    }
+
+    @Override
+    public List<DailyVisitResponse> getDailyVisitsCurrentMonth() {
+
+        LocalDate now = LocalDate.now();
+
+        List<DailyVisitProjection> dbData =
+                repository.findDailyVisits(
+                        now.getYear(),
+                        now.getMonthValue());
+
+        Map<Integer, Long> visitsByDay = dbData.stream()
+                .collect(Collectors.toMap(
+                        DailyVisitProjection::getDay,
+                        DailyVisitProjection::getVisits));
+
+        int currentDay = now.getDayOfMonth();
+
+        List<DailyVisitResponse> result = new ArrayList<>();
+
+        for (int day = 1; day <= currentDay; day++) {
+
+            result.add(new DailyVisitResponse(
+                    day,
+                    visitsByDay.getOrDefault(day, 0L)
+            ));
+        }
+
+        return result;
     }
 }

@@ -39,4 +39,18 @@ public interface WebVisitRepository extends JpaRepository<WebVisit, Long> {
     List<CountryVisitProjection> findMonthlyVisitsByCountry(
             int year,
             int month);
+    
+    @Query("""
+            SELECT
+                DAY(w.visitTime) AS day,
+                COUNT(w) AS visits
+            FROM WebVisit w
+            WHERE YEAR(w.visitTime) = :year
+              AND MONTH(w.visitTime) = :month
+            GROUP BY DAY(w.visitTime)
+            ORDER BY DAY(w.visitTime)
+        """)
+        List<DailyVisitProjection> findDailyVisits(
+                int year,
+                int month);
 }
