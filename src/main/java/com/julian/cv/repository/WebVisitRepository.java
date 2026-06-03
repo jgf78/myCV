@@ -1,5 +1,6 @@
 package com.julian.cv.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
@@ -53,4 +54,6 @@ public interface WebVisitRepository extends JpaRepository<WebVisit, Long> {
         List<DailyVisitProjection> findDailyVisits(
                 int year,
                 int month);
+    
+    List<WebVisit> findByVisitTimeBetween(LocalDateTime start, LocalDateTime end);
 }

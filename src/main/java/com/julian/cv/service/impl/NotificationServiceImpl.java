@@ -127,4 +127,21 @@ public class NotificationServiceImpl implements NotificationService {
             default -> "🌍";
         };
     }
+    
+    @Override
+    public void sendMonthlyReport(String message) {
+        send(message);
+    }
+
+    private void send(String message) {
+
+        restTemplate.postForObject(
+                URL,
+                Map.of(
+                        "message", message,
+                        "destination", "mail"
+                ),
+                String.class
+        );
+    }
 }
