@@ -2,7 +2,9 @@ package com.julian.cv.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -65,26 +67,29 @@ public class MonthlyReportService {
     }
 
     private String buildMessage(long total,
-                                Map<String, Long> byCountry,
-                                Map<String, Long> byDevice,
-                                LocalDateTime start) {
+            Map<String, Long> byCountry,
+            Map<String, Long> byDevice,
+            LocalDateTime start) {
 
-        return """
-        📊 Reporte mensual - %s
-
-        🔥 Visitas totales: %d
-
-        🌍 Por país:
-        %s
-
-        📱 Dispositivos:
-        %s
-        """.formatted(
-                start.getMonth(),
-                total,
-                formatMap(byCountry),
-                formatMap(byDevice)
-        );
+            String monthEs = start.getMonth()
+            .getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
+            
+            return """
+            📊 Reporte mensual - %s
+            
+            🔥 Visitas totales: %d
+            
+            🌍 Por país:
+            %s
+            
+            📱 Dispositivos:
+            %s
+            """.formatted(
+            monthEs,
+            total,
+            formatMap(byCountry),
+            formatMap(byDevice)
+            );
     }
 
     private String formatMap(Map<String, Long> map) {
