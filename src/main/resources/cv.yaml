@@ -37,13 +37,13 @@ experience:
       - "Estudio resolutivo y programación de evolutivos y correctivos"
       - "Trabajo con metodologías ágiles Scrum y Kanban"
       
-   - company: "Glokal Consulting"
-     role: "Analista Programador"
-     period: "2005 - 2007"
-     details:
-       - "Apoyo técnico a programadores junior"
-       - "Estudio resolutivo y programación de evolutivos y correctivos"
-       - "Interlocución con el equipo funcional"      
+  - company: "Glokal Consulting"
+    role: "Analista Programador"
+    period: "2005 - 2007"
+    details:
+      - "Apoyo técnico a programadores junior"
+      - "Estudio resolutivo y programación de evolutivos y correctivos"
+      - "Interlocución con el equipo funcional"      
 
 education:
   - degree: "Técnico especialista en Informática de Gestión"
