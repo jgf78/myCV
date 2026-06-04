@@ -25,7 +25,7 @@ experience:
       - "Despliegue y configuración de la aplicación en Openshift."
       - "Creación y mantenimiento de los pipelines del flujo CI/CD con Jenkins"
       - "Mentoring a programadores Junior"
-      - "Interlocución con el equipo funcional."
+      - "Interlocución con el equipo funcional"
       - "Exponer al cliente el incremento del valor en cada review"
       - "Sesiones de capacitación para los usuarios funcionarios en los diferentes ayuntamientos"
       
@@ -36,6 +36,14 @@ experience:
       - "Diseño técnico de las aplicaciones"
       - "Estudio resolutivo y programación de evolutivos y correctivos"
       - "Trabajo con metodologías ágiles Scrum y Kanban"
+      
+   - company: "Glokal Consulting"
+     role: "Analista Programador"
+     period: "2005 - 2007"
+     details:
+       - "Apoyo técnico a programadores junior"
+       - "Estudio resolutivo y programación de evolutivos y correctivos"
+       - "Interlocución con el equipo funcional"      
 
 education:
   - degree: "Técnico especialista en Informática de Gestión"
@@ -62,6 +70,7 @@ skills:
   - "PostgreSQL / MySQL"
   - "CI/CD con Jenkins y Nexus"
   - "Arquitectura de microservicios"
+  - "Openshift"
 
 languages:
   - name: "Español"
