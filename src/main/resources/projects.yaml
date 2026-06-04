@@ -55,9 +55,9 @@ projects:
           La aplicación que estás viendo... donde se pretende mostrar mi CV de una forma más llamativa asi como mostrar mis demás proyectos. 
     features:
           - "Módulo Admin securizado para la gestión de la web"
-          - "Portfolio de las applicaciones que he hecho" 
+          - "Portfolio de mis applicaciones" 
           - "Aplicación responsive" 
-          - "Modo light/dark automaático"
+          - "Modo light/dark automático"
     technologies:
         - "Java 17"
         - "Spring Boot"
