@@ -63,6 +63,12 @@ public class VisitFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+        
+        // 🚫 escaneos
+        if (isScannerPath(path)) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         // 🤖 ignorar robots.txt
         if ("/robots.txt".equals(path)) {
@@ -243,5 +249,18 @@ public class VisitFilter implements Filter {
                 || p.startsWith("/auth")
                 || p.equals("/login")
                 || p.startsWith("/error");
+    }
+    
+    private boolean isScannerPath(String p) {
+
+        return p.endsWith(".php")
+                || p.contains("server-status")
+                || p.contains("server-info")
+                || p.contains("_environment")
+                || p.contains("credentials.json")
+                || p.contains("service-account")
+                || p.contains("firebase")
+                || p.contains("gcp")
+                || p.contains("google-key");
     }
 }
