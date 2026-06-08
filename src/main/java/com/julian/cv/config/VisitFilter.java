@@ -260,6 +260,7 @@ public class VisitFilter implements Filter {
                 || p.contains("credentials.json")
                 || p.contains("service-account")
                 || p.contains("firebase")
+                || p.contains("wp")
                 || p.contains("gcp")
                 || p.contains("google-key");
     }
