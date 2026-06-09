@@ -208,6 +208,7 @@ public class VisitFilter implements Filter {
                 || p.contains("invoker")
                 || p.contains("ping_isolation")
                 || p.contains("proto_s")
+                || p.contains("k-t")
                 || p.contains("netskope")
                 || p.contains("/templates/")
                 || p.contains("rbi-dialog")
