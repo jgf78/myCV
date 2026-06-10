@@ -197,6 +197,7 @@ public class VisitFilter implements Filter {
         if (p.contains("wp-admin")
                 || p.contains("wp-login")
                 || p.contains(".git")
+                || p.contains(".txt")
                 || p.contains(".env")
                 || p.contains("phpinfo")
                 || p.contains("xmlrpc")
