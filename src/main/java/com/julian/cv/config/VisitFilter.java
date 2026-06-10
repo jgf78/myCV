@@ -262,6 +262,8 @@ public class VisitFilter implements Filter {
                 || p.contains("service-account")
                 || p.contains("firebase")
                 || p.contains("wp")
+                || p.contains("magento_version")
+                || p.startsWith("/rest/v1/store")
                 || p.contains("gcp")
                 || p.contains("google-key");
     }
