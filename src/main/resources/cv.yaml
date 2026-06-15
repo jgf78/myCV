@@ -62,7 +62,7 @@ certification:
     period: "2023"   
 
 skills:
-  - "Java 11/17"
+  - "Java 17/21"
   - "Spring Boot"
   - "Docker & Kubernetes"
   - "Apache Kafka"
