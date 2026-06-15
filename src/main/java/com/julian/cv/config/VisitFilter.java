@@ -265,6 +265,12 @@ public class VisitFilter implements Filter {
                 || p.contains("wp")
                 || p.contains("magento_version")
                 || p.startsWith("/rest/v1/store")
+                || p.contains("old")
+                || p.contains("/.well-known/traffic-advice")
+                || p.contains("well-known")
+                || p.contains("traffic")
+                || p.contains("advice")
+                || p.contains("wordpress")
                 || p.contains("gcp")
                 || p.contains("google-key");
     }
