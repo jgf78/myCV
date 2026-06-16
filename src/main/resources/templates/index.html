@@ -130,67 +130,7 @@ footer {
 
 <body>
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-		<div class="container">
-
-			<a class="navbar-brand fw-bold" href="/"> Julián Gómez Fernández
-			</a>
-
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<div class="navbar-nav ms-auto">
-
-					<a class="nav-link active" href="/" th:text="#{nav.cv}">CV</a>
-					<a class="nav-link" href="/projects" th:text="#{nav.projects}">Proyectos</a> 
-					<a class="nav-link"
-						href="https://github.com/jgf78" target="_blank"> <i
-						class="bi bi-github me-1"></i> GitHub
-					</a> <a class="nav-link"
-						href="https://www.linkedin.com/in/juliangomezfdez/"
-						target="_blank"> <i class="bi bi-linkedin me-1"></i> LinkedIn
-					</a>
-					<a class="nav-link" href="/login">
-					    <i class="bi bi-lock me-1"></i>
-					    <span th:text="#{nav.admin}">Admin</span>
-					</a>
-					
-						<div class="dropdown ms-2">
-						
-						    <button class="btn btn-outline-light btn-sm dropdown-toggle"
-						            type="button"
-						            data-bs-toggle="dropdown">
-						    
-						        🌐
-						    </button>
-						
-						    <ul class="dropdown-menu dropdown-menu-end">
-						
-						        <li>
-						            <a class="dropdown-item"
-						               th:href="@{/(lang='es')}">
-						                <img src="/images/es.jpg" width="20"> Español
-						            </a>
-						        </li>
-						
-						        <li>
-						            <a class="dropdown-item"
-						               th:href="@{/(lang='en')}">
-						                <img src="/images/en.jpg" width="20"> English
-						            </a>
-						        </li>
-						
-						    </ul>
-						
-						</div>
-						
-				</div>
-			</div>
-		</div>
-	</nav>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 	<div class="cv-container">
 

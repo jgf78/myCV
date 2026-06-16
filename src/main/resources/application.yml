@@ -32,6 +32,10 @@ spring:
   messages:
     basename: lang/messages
     encoding: UTF-8
+   
+  thymeleaf:
+    servlet:
+      produce-partial-output-while-processing: true   
 
 sql:
   init:
