@@ -1,0 +1,92 @@
+name: "Julián Gómez Fernández"
+title: "Java Backend Developer"
+photo: "/images/foto-perfil.jpg"
+
+summary: |
+  With more than 15 years of experience in the technology sector, I have performed different roles as a developer, analyst, DevOps engineer and team leader. I have been responsible for application management, working directly with clients to gather requirements, solve incidents and propose improvements.
+
+  I have led deployments across different environments and coordinated development teams to ensure the delivery of effective solutions on time. Throughout my career, I have continuously evolved, learning and adapting to new technologies to be prepared for any challenge.
+
+  I am organized, committed and enjoy teamwork. If you would like to talk or need further information, do not hesitate to contact me!
+
+experience:
+
+  - company: "Minsait"
+    role: "Senior Consultant | Senior Backend Java Developer | Team Leader"
+    period: "2019 - Present"
+    details:
+      - "Responsible for the management, coordination and development of the technical team"
+      - "Propose new improvements and solutions for the project while ensuring best development practices within the team"
+      - "Development of REST APIs with Java 17/21 (Microservices)"
+      - "Lambda expressions usage"
+      - "SOLID principles and Clean Code"
+      - "Application maintenance and evolutionary developments"
+      - "Unit testing with JUnit and performance testing with JMeter"
+      - "Working with Agile methodologies (Jira/Scrum/Kanban)"
+      - "Documentation using Confluence"
+      - "Application deployment and configuration in OpenShift"
+      - "Creation and maintenance of CI/CD pipelines using Jenkins"
+      - "Mentoring junior developers"
+      - "Communication with functional teams"
+      - "Presenting value increments to the client during each review"
+      - "Training sessions for public administration users in different municipalities"
+
+  - company: "Getronics"
+    role: "Functional Analyst"
+    period: "2007 - 2019"
+    details:
+      - "Technical design of applications"
+      - "Analysis, resolution and development of evolutionary and corrective improvements"
+      - "Working with Agile methodologies Scrum and Kanban"
+
+  - company: "Glokal Consulting"
+    role: "Analyst Programmer"
+    period: "2005 - 2007"
+    details:
+      - "Technical support and mentoring for junior developers"
+      - "Analysis, resolution and development of evolutionary and corrective improvements"
+      - "Communication with functional teams"
+
+
+education:
+
+  - degree: "Higher Technician in Management Information Technology"
+    institution: "IES Luis Vives (Leganés)"
+    period: "1997 - 2000"
+
+
+certification:
+
+  - name: "Microsoft Certified: Azure Fundamentals"
+    institution: "Microsoft"
+    period: "2025"
+
+  - name: "Google Cloud Digital Leader"
+    institution: "Google"
+    period: "2023 - 2026"
+
+  - name: "Scrum Fundamentals Certified (SFC)"
+    institution: "Vabro.ai and VMEdu.com"
+    period: "2023"
+
+
+skills:
+
+  - "Java 17/21"
+  - "Spring Boot"
+  - "Docker & Kubernetes"
+  - "Apache Kafka"
+  - "Spring Security"
+  - "PostgreSQL / MySQL"
+  - "CI/CD with Jenkins and Nexus"
+  - "Microservices architecture"
+  - "OpenShift"
+
+
+languages:
+
+  - name: "Spanish"
+    level: "Native"
+
+  - name: "English"
+    level: "B1"

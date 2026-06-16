@@ -1,6 +1,7 @@
 package com.julian.cv.service;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -12,26 +13,70 @@ import com.julian.cv.model.Project;
 @Service
 public class CvService {
 
-    private final Cv cv;
-    private final Project projects;
+    private static final String DEFAULT_LANG = "es";
 
-    public CvService() {
+    public Cv getCv(Locale locale) {
+        String lang = getLanguage(locale);
+
         try {
-            Yaml yaml = new Yaml();
-            InputStream inputStream = new ClassPathResource("cv.yaml").getInputStream();
-            this.cv = yaml.loadAs(inputStream, Cv.class);
-            inputStream = new ClassPathResource("projects.yaml").getInputStream();
-            this.projects = yaml.loadAs(inputStream, Project.class);
+            return loadYaml("cv_" + lang + ".yaml", Cv.class);
+
         } catch (Exception e) {
-            throw new RuntimeException("Error al cargar yamls", e);
+
+            // fallback español si no existe el idioma
+            return loadYaml("cv_" + DEFAULT_LANG + ".yaml", Cv.class);
         }
     }
 
-    public Cv getCv() {
-        return cv;
+
+    public Project getProjects(Locale locale) {
+
+        String lang = getLanguage(locale);
+
+        try {
+            return loadYaml("projects_" + lang + ".yaml", Project.class);
+
+        } catch (Exception e) {
+
+            // fallback español
+            return loadYaml("projects_" + DEFAULT_LANG + ".yaml", Project.class);
+        }
     }
-    
-    public Project getProjects() {
-        return projects;
+
+
+    private String getLanguage(Locale locale) {
+
+        if (locale == null) {
+            return DEFAULT_LANG;
+        }
+
+        String lang = locale.getLanguage();
+
+        if ("en".equals(lang)) {
+            return "en";
+        }
+
+        return DEFAULT_LANG;
+    }
+
+
+    private <T> T loadYaml(String fileName, Class<T> clazz) {
+
+        try {
+
+            Yaml yaml = new Yaml();
+
+            InputStream inputStream =
+                    new ClassPathResource(fileName).getInputStream();
+
+            return yaml.loadAs(inputStream, clazz);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException(
+                    "Error cargando YAML: " + fileName,
+                    e
+            );
+        }
     }
 }

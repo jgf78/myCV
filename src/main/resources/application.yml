@@ -1,8 +1,10 @@
 spring:
   jackson:
     time-zone: Europe/Madrid
+
   application:
     name: myCV
+
   datasource:
     # url: jdbc:postgresql://192.168.1.3:5432/notificator
     url: jdbc:postgresql://jgf78.duckdns.org:5432/notificator
@@ -10,37 +12,42 @@ spring:
     password: 1234
     driver-class-name: org.postgresql.Driver
     hikari:
-        maximum-pool-size: 10
-        max-lifetime: 1700000
-        idle-timeout: 600000
-        keepalive-time: 300000
-        connection-test-query: SELECT 1
+      maximum-pool-size: 10
+      max-lifetime: 1700000
+      idle-timeout: 600000
+      keepalive-time: 300000
+      connection-test-query: SELECT 1
 
   jpa:
     hibernate:
-      ddl-auto: none   
+      ddl-auto: none
     show-sql: false
     open-in-view: false
     properties:
-       hibernate:
-         format_sql: true
-         jdbc:
-           time_zone: UTC
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  messages:
+    basename: lang/messages
+    encoding: UTF-8
+
 sql:
- init:
-   mode: never
+  init:
+    mode: never
 
 server:
   port: 8081
 
 jwt:
-  secret: P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1  
-  
+  secret: P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1
+
 logging:
   file:
     path: ./target/
     name: ${spring.application.name}
     level:
-     com.julian: DEBUG
-     org.springframework.boot: INFO
-     org.springframework.web: INFO
+      com.julian: DEBUG
+      org.springframework.boot: INFO
+      org.springframework.web: INFO

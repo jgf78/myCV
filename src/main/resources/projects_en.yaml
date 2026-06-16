@@ -1,0 +1,88 @@
+projects:
+
+  - name: "Notificador - Telegram bot (https://t.me/kafkajgf_bot)"
+    description: |
+      🚀 I developed Notificador, a Telegram bot that centralizes daily information quickly, automatically and in a decoupled way.
+
+    features:
+      - "📰 Daily news headlines"
+      - "🎬 Current cinema listings"
+      - "🌦️ Weather information by city"
+      - "📺 DTT programming"
+      - "🍿 Current top streaming platform series"
+      - "and much more..."
+
+    technologies:
+      - "Java 17"
+      - "Spring Boot"
+      - "PostgreSQL"
+      - "Docker"
+      - "Redis"
+      - "Kafka"
+
+    github: "https://github.com/jgf78/kafkanotificator"
+
+
+  - name: "Notificator (Multi-channel system)"
+
+    description: |
+      A Spring Boot application designed to centralize notification delivery through multiple channels.
+      The project is compiled, a Docker image is generated and automatically published to Docker Hub through Jenkins CI/CD.
+
+    features:
+      - "💬 Telegram"
+      - "💬 WhatsApp"
+      - "💻 Discord"
+      - "💻 MQTT"
+      - "📧 Email (SMTP)"
+      - "Scheduled messages and much more."
+
+    technologies:
+      - "Java 17"
+      - "Spring Boot"
+      - "PostgreSQL"
+      - "Docker"
+      - "Redis"
+      - "Kafka"
+
+    github: "https://github.com/jgf78/kafkanotificator"
+
+
+  - name: "Google Calendar Notifier"
+
+    description: |
+      Integration with Google Calendar to synchronize events and generate automatic notifications through Notificator.
+
+    features:
+      - "Synchronization with Google Calendar API"
+      - "Daily agenda from all calendars at 8:00 AM"
+
+    technologies:
+      - "Java 17"
+      - "Spring Boot"
+      - "Google Calendar API"
+
+    github: "https://github.com/jgf78/calendar"
+
+
+  - name: "MyCV"
+
+    description: |
+      The application you are currently viewing... designed to showcase my CV in a more attractive way while also displaying my other projects.
+
+    features:
+      - "Secured Admin module for website management"
+      - "Portfolio of my applications"
+      - "Responsive application"
+      - "Automatic light/dark mode"
+      - "Bilingual website"
+
+    technologies:
+      - "Java 17"
+      - "Spring Boot"
+      - "PostgreSQL"
+      - "Docker"
+      - "Spring Security and JWT"
+      - "Thymeleaf"
+
+    github: "https://github.com/jgf78/myCV"

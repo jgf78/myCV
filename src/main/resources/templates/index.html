@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title th:text="${cv.name} + ' - CV'">Mi CV</title>
+<title th:text="${cv.name} + ' - ' + #{nav.cv}">Mi CV</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -144,8 +144,9 @@ footer {
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<div class="navbar-nav ms-auto">
 
-					<a class="nav-link active" href="/">CV</a> <a class="nav-link"
-						href="/projects">Proyectos</a> <a class="nav-link"
+					<a class="nav-link active" href="/" th:text="#{nav.cv}">CV</a>
+					<a class="nav-link" href="/projects" th:text="#{nav.projects}">Proyectos</a> 
+					<a class="nav-link"
 						href="https://github.com/jgf78" target="_blank"> <i
 						class="bi bi-github me-1"></i> GitHub
 					</a> <a class="nav-link"
@@ -153,9 +154,39 @@ footer {
 						target="_blank"> <i class="bi bi-linkedin me-1"></i> LinkedIn
 					</a>
 					<a class="nav-link" href="/login">
-					    <i class="bi bi-lock me-1"></i> Admin
+					    <i class="bi bi-lock me-1"></i>
+					    <span th:text="#{nav.admin}">Admin</span>
 					</a>
-
+					
+						<div class="dropdown ms-2">
+						
+						    <button class="btn btn-outline-light btn-sm dropdown-toggle"
+						            type="button"
+						            data-bs-toggle="dropdown">
+						    
+						        🌐
+						    </button>
+						
+						    <ul class="dropdown-menu dropdown-menu-end">
+						
+						        <li>
+						            <a class="dropdown-item"
+						               th:href="@{/(lang='es')}">
+						                <img src="/images/es.jpg" width="20"> Español
+						            </a>
+						        </li>
+						
+						        <li>
+						            <a class="dropdown-item"
+						               th:href="@{/(lang='en')}">
+						                <img src="/images/en.jpg" width="20"> English
+						            </a>
+						        </li>
+						
+						    </ul>
+						
+						</div>
+						
 				</div>
 			</div>
 		</div>
@@ -165,8 +196,9 @@ footer {
 
 		<header class="cv-header mb-4">
 
-			<img th:src="@{${cv.photo}}" class="rounded-circle shadow cv-photo"
-				alt="Foto">
+			<img th:src="@{${cv.photo}}"
+			     class="rounded-circle shadow cv-photo"
+			     th:alt="#{cv.photo.alt}">
 
 			<div>
 				<h1 th:text="${cv.name}"></h1>
@@ -177,7 +209,7 @@ footer {
 		</header>
 
 		<section class="mb-4">
-			<h3>Experiencia</h3>
+			<h3 th:text="#{section.experience}">Experiencia</h3>
 			<div th:each="job : ${cv.experience}" class="mb-3">
 
 				<h5>
@@ -195,7 +227,7 @@ footer {
 		</section>
 
 		<section class="mb-4">
-			<h3>Educación</h3>
+			<h3 th:text="#{section.education}">Educación</h3>
 			<div th:each="edu : ${cv.education}">
 				<p>
 					<strong th:text="${edu.degree}"></strong> - <span
@@ -206,7 +238,7 @@ footer {
 		</section>
 
 		<section class="mb-4">
-			<h3>Certificaciones</h3>
+			<h3 th:text="#{section.certifications}">Certificaciones</h3>
 			<ul>
 				<li th:each="cert : ${cv.certification}"
 					th:text="${cert.name} + ' - ' + ${cert.institution} + ' - ' + ${cert.period}">
@@ -215,14 +247,14 @@ footer {
 		</section>
 
 		<section class="mb-4">
-			<h3>Habilidades</h3>
+			<h3 th:text="#{section.skills}">Habilidades</h3>
 			<ul>
 				<li th:each="skill : ${cv.skills}" th:text="${skill}"></li>
 			</ul>
 		</section>
 
 		<section class="mb-4">
-			<h3>Idiomas</h3>
+			<h3 th:text="#{section.languages}">Idiomas</h3>
 			<ul>
 				<li th:each="lang : ${cv.languages}"
 					th:text="${lang.name} + ' - ' + ${lang.level}"></li>
@@ -233,15 +265,19 @@ footer {
 			<hr>
 
 			<p>
-				CV en <a href="https://www.linkedin.com/in/juliangomezfdez/"
-					target="_blank"> <i class="bi bi-linkedin"></i> LinkedIn
-				</a>
+			    <span th:text="#{footer.linkedin}">CV en</span>
+			    <a href="https://www.linkedin.com/in/juliangomezfdez/"
+			        target="_blank">
+			        <i class="bi bi-linkedin"></i> LinkedIn
+			    </a>
 			</p>
 
 			<p>
-				Contacto <a href="mailto:contacto@juliangomezfernandez.com"> <i
-					class="bi bi-envelope-fill"></i> Email
-				</a>
+			    <span th:text="#{footer.contact}">Contacto</span>
+			    <a href="mailto:contacto@juliangomezfernandez.com">
+			        <i class="bi bi-envelope-fill"></i>
+			        <span th:text="#{footer.email}">Email</span>
+			    </a>
 			</p>
 		</footer>
 

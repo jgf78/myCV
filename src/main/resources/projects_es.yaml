@@ -58,6 +58,7 @@ projects:
           - "Portfolio de mis applicaciones" 
           - "Aplicación responsive" 
           - "Modo light/dark automático"
+          - "Web bilingüe"
     technologies:
         - "Java 17"
         - "Spring Boot"

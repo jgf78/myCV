@@ -157,6 +157,35 @@ body {
                 <a class="nav-link  active" href="/login">
                     <i class="bi bi-lock me-1"></i> Admin
                 </a>
+                
+                <div class="dropdown ms-2">
+
+					    <button class="btn btn-outline-light btn-sm dropdown-toggle"
+					            type="button"
+					            data-bs-toggle="dropdown">
+					    
+					        🌐
+					    </button>
+					
+					    <ul class="dropdown-menu dropdown-menu-end">
+					
+					        <li>
+					            <a class="dropdown-item"
+								   href="/login?lang=es">
+								   <img src="/images/es.jpg" width="20"> Español
+								</a>
+					        </li>
+					
+					        <li>
+					            <a class="dropdown-item"
+								   href="/login?lang=en">
+								    <img src="/images/en.jpg" width="20"> English
+								</a>
+					        </li>
+					
+					    </ul>
+					
+					</div>
 
             </div>
 
@@ -172,22 +201,24 @@ body {
     <div class="login-card">
 
         <h3 class="login-title">
-            <i class="bi bi-lock-fill me-2"></i>
-            Admin Login
-        </h3>
+		    <i class="bi bi-lock-fill me-2"></i>
+		    <span th:text="#{login.title}">Admin Login</span>
+		</h3>
 
 		<div th:if="${param.error}"
 		     class="alert alert-danger text-center">
 		
 		    <i class="bi bi-exclamation-triangle me-1"></i>
-		    Usuario o contraseña incorrectos
+		    <span th:text="#{login.error}">
+			    Usuario o contraseña incorrectos
+			</span>
 		
 		</div>
 
         <form method="post" action="/auth/login">
 
             <div class="mb-3">
-                <label class="form-label">Usuario</label>
+                <label class="form-label" th:text="#{login.username}">Usuario</label>
                 <input type="text"
                        name="username"
                        class="form-control"
@@ -196,7 +227,7 @@ body {
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Contraseña</label>
+                <label class="form-label" th:text="#{login.password}">Contraseña</label>
                 <input type="password"
                        name="password"
                        class="form-control"
@@ -205,16 +236,22 @@ body {
             </div>
 
             <button class="btn btn-dark w-100 btn-login" type="submit">
-			    Entrar
+
+			    <span th:text="#{login.button}">
+			        Entrar
+			    </span>
+			
 			    <i class="bi bi-box-arrow-in-right ms-1"></i>
+			
 			</button>
 
         </form>
 
         <div class="text-center mt-3">
-            <a href="/" class="text-muted small">
-                Volver al CV
-            </a>
+            <a href="/" class="text-muted small"
+			   th:text="#{login.back}">
+			    Volver al CV
+			</a>
         </div>
 
     </div>
