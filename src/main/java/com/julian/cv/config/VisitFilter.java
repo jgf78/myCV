@@ -213,6 +213,7 @@ public class VisitFilter implements Filter {
                 || p.contains("netskope")
                 || p.contains("/templates/")
                 || p.contains("rbi-dialog")
+                || p.contains("/kogin")
                 || p.contains("expired-tab")
                 || p.contains("security.txt")) {
 
