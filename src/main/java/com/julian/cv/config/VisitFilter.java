@@ -220,6 +220,12 @@ public class VisitFilter implements Filter {
             return true;
         }
 
+        // Joomla
+        if (p.startsWith("/modules/")
+                || p.contains("mod_login.xml")) {
+            return true;
+        }
+        
         // heurística
         if (p.matches("^/[a-zA-Z0-9]{8,}$")) {
             return true;
