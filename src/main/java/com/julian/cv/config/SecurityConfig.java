@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
 public class SecurityConfig {
 
@@ -45,7 +46,7 @@ public class SecurityConfig {
                                 "/wp-admin/**",
                                 "/wp-login.php"
                         ).denyAll()
-                        
+
                         .requestMatchers("/admin/**").authenticated()
 
                         .anyRequest().permitAll()
@@ -57,21 +58,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
         return config.getAuthenticationManager();
-    }
-
-    @Bean
-    org.springframework.security.core.userdetails.UserDetailsService userDetailsService(
-            PasswordEncoder encoder) {
-
-        var admin = org.springframework.security.core.userdetails.User
-                .withUsername("admin")
-                .password(encoder.encode("Anliju78+Web"))
-                .roles("ADMIN")
-                .build();
-
-        return new org.springframework.security.provisioning.InMemoryUserDetailsManager(admin);
     }
 
     @Bean
