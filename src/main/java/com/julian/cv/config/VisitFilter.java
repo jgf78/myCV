@@ -51,41 +51,9 @@ public class VisitFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
 
         String path = req.getRequestURI();
-
-        // 🚫 ignorar recursos estáticos
-        if (isStatic(path)) {
-            chain.doFilter(request, response);
-            return;
-        }
-        
-        // 🚫 NO registrar admin ni login
-        if (isInternalPath(path)) {
-            chain.doFilter(request, response);
-            return;
-        }
-        
-        // 🚫 escaneos
-        if (isScannerPath(path)) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        // 🤖 ignorar robots.txt
-        if ("/robots.txt".equals(path)) {
-            chain.doFilter(request, response);
-            return;
-        }
-        
-        // 🤖 ignorar sitemap.xml
-        if (path.equals("/sitemap.xml")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
         String userAgentRaw = req.getHeader("User-Agent");
 
-        // 🤖 ignorar bots/scanners
-        if (isBot(path, userAgentRaw)) {
+        if (shouldIgnore(path, userAgentRaw)) {
             chain.doFilter(request, response);
             return;
         }
@@ -93,14 +61,12 @@ public class VisitFilter implements Filter {
         String referer = req.getHeader("Referer");
         String ip = getClientIp(req);
 
-        // 🌍 GeoIP SOLO para tráfico real
         GeoIpData geo = geoIpService.getGeoData(ip);
 
         String country = geo != null ? geo.country() : null;
         String city = geo != null ? geo.city() : null;
         String region = geo != null ? geo.region() : null;
 
-        // 📦 guardar navegación real
         service.registerVisit(new VisitRecord(
                 path,
                 userAgentRaw,
@@ -111,23 +77,19 @@ public class VisitFilter implements Filter {
                 region
         ));
 
-        // 🔐 contar SOLO 1 visita por sesión
         HttpSession session = req.getSession(true);
 
         if (session.getAttribute("VISIT_COUNTED") == null) {
 
             session.setAttribute("VISIT_COUNTED", true);
 
-            // 📊 contador global
             long visitNumber = counterService.incrementAndGet();
 
-            // 📅 contador mensual
             counterMonthlyService.registerVisit();
 
             long monthlyVisits =
                     counterMonthlyService.getCurrentMonthVisits();
 
-            // 🔔 notificación
             notificationService.sendVisitNotification(
                     visitNumber,
                     simplifyUserAgent(userAgentRaw),
@@ -140,12 +102,29 @@ public class VisitFilter implements Filter {
         chain.doFilter(request, response);
     }
 
+    private boolean shouldIgnore(String path, String userAgent) {
+
+        if (path == null) {
+            return true;
+        }
+
+        String p = path.toLowerCase();
+
+        return isStatic(p)
+                || isInternalPath(p)
+                || "/robots.txt".equals(p)
+                || "/sitemap.xml".equals(p)
+                || p.startsWith("/.")
+                || isScannerPath(p)
+                || isScannerUserAgent(userAgent);
+    }
+
     private String getClientIp(HttpServletRequest request) {
 
         String xfHeader = request.getHeader("X-Forwarded-For");
 
         if (xfHeader != null && !xfHeader.isEmpty()) {
-            return xfHeader.split(",")[0];
+            return xfHeader.split(",")[0].trim();
         }
 
         return request.getRemoteAddr();
@@ -185,53 +164,16 @@ public class VisitFilter implements Filter {
                 || path.matches(".*\\.(png|jpg|jpeg|gif|svg|ico|css|js)$");
     }
 
-    private boolean isBot(String path, String userAgent) {
+    private boolean isInternalPath(String path) {
 
-        if (path == null) {
-            return true;
-        }
+        return path.startsWith("/admin")
+                || path.startsWith("/auth")
+                || path.equals("/login")
+                || path.startsWith("/error");
+    }
 
-        String p = path.toLowerCase();
+    private boolean isScannerUserAgent(String userAgent) {
 
-        // 🤖 scanners típicos
-        if (p.contains("wp-admin")
-                || p.contains("wp-login")
-                || p.contains(".git")
-                || p.contains(".txt")
-                || p.contains(".env")
-                || p.contains("phpinfo")
-                || p.contains("xmlrpc")
-                || p.contains("boaform")
-                || p.contains("cgi-bin")
-                || p.contains("vendor")
-                || p.contains("alvin9999")
-                || p.contains("struts")
-                || p.contains("invoker")
-                || p.contains("ping_isolation")
-                || p.contains("proto_s")
-                || p.contains("k-t")
-                || p.contains("netskope")
-                || p.contains("/templates/")
-                || p.contains("rbi-dialog")
-                || p.contains("/kogin")
-                || p.contains("expired-tab")
-                || p.contains("security.txt")) {
-
-            return true;
-        }
-
-        // Joomla
-        if (p.startsWith("/modules/")
-                || p.contains("mod_login.xml")) {
-            return true;
-        }
-        
-        // heurística
-        if (p.matches("^/[a-zA-Z0-9]{8,}$")) {
-            return true;
-        }
-        
-        // si no hay user-agent, no asumimos bot
         if (userAgent == null) {
             return false;
         }
@@ -245,40 +187,59 @@ public class VisitFilter implements Filter {
                 || ua.contains("curl")
                 || ua.contains("wget")
                 || ua.contains("python")
-                || ua.contains("scrapy");
+                || ua.contains("scrapy")
+                || ua.contains("cortex-xpanse")
+                || ua.contains("palo alto networks");
     }
-    
-    private boolean isInternalPath(String path) {
 
-        if (path == null) return true;
-
-        String p = path.toLowerCase();
-
-        return p.startsWith("/admin")
-                || p.startsWith("/auth")
-                || p.equals("/login")
-                || p.startsWith("/error");
-    }
-    
     private boolean isScannerPath(String p) {
 
-        return p.endsWith(".php")
+        return
+
+                // PHP
+                p.endsWith(".php")
+                || p.contains("phpinfo")
                 || p.contains("server-status")
                 || p.contains("server-info")
-                || p.contains("_environment")
+
+                // secretos
+                || p.contains(".env")
+                || p.contains(".git")
                 || p.contains("credentials.json")
                 || p.contains("service-account")
                 || p.contains("firebase")
-                || p.contains("wp")
+                || p.contains("google-key")
+                || p.contains("gcp-key")
+                || p.contains("application_default_credentials")
+
+                // WordPress
+                || p.startsWith("/wp")
+                || p.contains("wp-admin")
+                || p.contains("wp-login")
+                || p.contains("xmlrpc")
+
+                // Magento
                 || p.contains("magento_version")
                 || p.startsWith("/rest/v1/store")
-                || p.contains("old")
-                || p.contains("/.well-known/traffic-advice")
-                || p.contains("well-known")
-                || p.contains("traffic")
-                || p.contains("advice")
-                || p.contains("wordpress")
-                || p.contains("gcp")
-                || p.contains("google-key");
+
+                // Joomla
+                || p.startsWith("/modules/")
+                || p.contains("mod_login.xml")
+
+                // scanners conocidos
+                || p.contains("cgi-bin")
+                || p.contains("boaform")
+                || p.contains("struts")
+                || p.contains("invoker")
+                || p.contains("vendor")
+                || p.contains("netskope")
+                || p.contains("security.txt")
+
+                // variables de entorno
+                || p.contains("_environment")
+
+                // fuzzing
+                || p.matches("^/[a-z0-9]{8,}$")
+                || p.matches("^/[a-z0-9]{1,3}(-[a-z0-9]{1,3})+$");
     }
 }
