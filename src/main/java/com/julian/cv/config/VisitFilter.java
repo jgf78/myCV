@@ -234,10 +234,11 @@ public class VisitFilter implements Filter {
                 || p.contains("vendor")
                 || p.contains("netskope")
                 || p.contains("security.txt")
+                || p.contains("alvin9999")
 
                 // variables de entorno
                 || p.contains("_environment")
-
+                
                 // fuzzing
                 || p.matches("^/[a-z0-9]{8,}$")
                 || p.matches("^/[a-z0-9]{1,3}(-[a-z0-9]{1,3})+$");
