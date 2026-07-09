@@ -12,6 +12,9 @@ import com.julian.cv.service.auth.JwtService;
 
 import jakarta.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
@@ -46,6 +49,7 @@ public class AuthController {
             }
 
         } catch (Exception e) {
+            log.error("Error autenticando al usuario {}", username, e);
             return "redirect:/login?error=true";
         }
 
