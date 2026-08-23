@@ -202,7 +202,7 @@ public class VisitFilter implements Filter {
                 || p.contains("server-status")
                 || p.contains("server-info")
 
-                // secretos
+                // secretos / credenciales
                 || p.contains(".env")
                 || p.contains(".git")
                 || p.contains("credentials.json")
@@ -226,7 +226,54 @@ public class VisitFilter implements Filter {
                 || p.startsWith("/modules/")
                 || p.contains("mod_login.xml")
 
-                // scanners conocidos
+                // Spring Boot / Swagger / Actuator
+                || p.startsWith("/actuator")
+                || p.equals("/swagger")
+                || p.equals("/swagger-ui.html")
+                || p.equals("/swagger.json")
+                || p.equals("/openapi.json")
+                || p.equals("/metrics")
+                || p.equals("/health")
+                || p.equals("/healthz")
+                || p.equals("/status")
+
+                // Backups
+                || p.equals("/backup")
+                || p.endsWith(".sql")
+                || p.endsWith(".zip")
+                || p.endsWith(".tar.gz")
+
+                // Ficheros de configuración
+                || p.endsWith("docker-compose.yml")
+                || p.endsWith("package.json")
+                || p.endsWith("composer.json")
+                || p.endsWith("composer.lock")
+                || p.endsWith("yarn.lock")
+                || p.endsWith("web.config")
+                || p.endsWith("readme.md")
+                || p.endsWith("changelog.md")
+                || p.endsWith("license.txt")
+
+                // Directorios sensibles
+                || p.startsWith("/private")
+                || p.startsWith("/secret")
+                || p.startsWith("/secrets")
+                || p.startsWith("/tmp")
+                || p.startsWith("/temp")
+                || p.startsWith("/upload")
+                || p.startsWith("/uploads")
+                || p.startsWith("/files")
+
+                // Consolas de administración
+                || p.startsWith("/manager")
+                || p.startsWith("/console")
+                || p.startsWith("/pma")
+
+                // XML antiguos
+                || p.endsWith("crossdomain.xml")
+                || p.endsWith("clientaccesspolicy.xml")
+
+                // Otros scanners conocidos
                 || p.contains("cgi-bin")
                 || p.contains("boaform")
                 || p.contains("struts")
@@ -235,11 +282,12 @@ public class VisitFilter implements Filter {
                 || p.contains("netskope")
                 || p.contains("security.txt")
                 || p.contains("alvin9999")
-
-                // variables de entorno
                 || p.contains("_environment")
-                
-                // fuzzing
+
+                // Archivos HTML aleatorios de verificación
+                || p.matches("^/[a-z0-9]{20,}\\.html$")
+
+                // Fuzzing
                 || p.matches("^/[a-z0-9]{8,}$")
                 || p.matches("^/[a-z0-9]{1,3}(-[a-z0-9]{1,3})+$");
     }
