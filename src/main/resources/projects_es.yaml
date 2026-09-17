@@ -66,4 +66,39 @@ projects:
         - "Docker"
         - "Spring Security y JWT"
         - "Thymeleaf"
-    github: "https://github.com/jgf78/myCV"        
+    github: "https://github.com/jgf78/myCV"
+    
+    - name: "Notificator-Front"
+
+      description: >
+
+            Aplicación web para gestionar y enviar notificaciones desde una única interfaz
+            a diferentes plataformas y servicios de comunicación.
+
+      features:
+
+            - "Envío de notificaciones desde una interfaz web"
+
+            - "Soporte para múltiples destinos: Telegram, Discord, Mail, WhatsApp, Alexa y MQTT"
+
+            - "Envío de mensajes, archivos adjuntos, encuestas y mensajes anclados"
+
+            - "Integración con la API REST de Notificator"
+
+            - "Interfaz responsive"
+
+      technologies:
+
+          - "Java 17"
+
+          - "Spring Boot"
+
+          - "Thymeleaf"
+
+          - "HTML / CSS / JavaScript"
+
+          - "REST API"
+
+          - "Docker"
+
+      github: "https://github.com/jgf78/notificator-front"

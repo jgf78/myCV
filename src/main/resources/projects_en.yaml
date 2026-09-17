@@ -86,3 +86,38 @@ projects:
       - "Thymeleaf"
 
     github: "https://github.com/jgf78/myCV"
+    
+    - name: "Notificator-Front"
+
+      description: >
+
+            Web application for managing and sending notifications from a single interface
+            to different platforms and communication services.
+
+      features:
+
+            - "Send notifications from a web interface"
+
+            - "Support for multiple destinations: Telegram, Discord, Mail, WhatsApp, Alexa and MQTT"
+
+            - "Support for messages, file attachments, polls and pinned messages"
+
+            - "Integration with the Notificator REST API"
+
+            - "Responsive interface"
+
+      technologies:
+
+          - "Java 17"
+
+          - "Spring Boot"
+
+          - "Thymeleaf"
+
+          - "HTML / CSS / JavaScript"
+
+          - "REST API"
+
+          - "Docker"
+
+      github: "https://github.com/jgf78/notificator-front"    
