@@ -87,37 +87,33 @@ projects:
 
     github: "https://github.com/jgf78/myCV"
     
-    - name: "Notificator-Front"
+  - name: "Notificator-Front"
 
-      description: >
+    description: >
+      Web application for managing and sending notifications from a single interface to different platforms and communication services.
 
-            Web application for managing and sending notifications from a single interface
-            to different platforms and communication services.
+    features:
+      - "Send notifications from a web interface"
 
-      features:
+      - "Support for multiple destinations: Telegram, Discord, Mail, WhatsApp, Alexa and MQTT"
 
-            - "Send notifications from a web interface"
+      - "Support for messages, file attachments, polls and pinned messages"
 
-            - "Support for multiple destinations: Telegram, Discord, Mail, WhatsApp, Alexa and MQTT"
+      - "Integration with the Notificator REST API"
 
-            - "Support for messages, file attachments, polls and pinned messages"
+      - "Responsive interface"
 
-            - "Integration with the Notificator REST API"
+    technologies:
+      - "Java 17"
 
-            - "Responsive interface"
+      - "Spring Boot"
 
-      technologies:
+      - "Thymeleaf"
 
-          - "Java 17"
+      - "HTML / CSS / JavaScript"
 
-          - "Spring Boot"
+      - "REST API"
 
-          - "Thymeleaf"
+      - "Docker"
 
-          - "HTML / CSS / JavaScript"
-
-          - "REST API"
-
-          - "Docker"
-
-      github: "https://github.com/jgf78/notificator-front"    
+    github: "https://github.com/jgf78/notificator-front"    
