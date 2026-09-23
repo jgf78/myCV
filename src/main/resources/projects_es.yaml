@@ -1,7 +1,7 @@
 projects:
   - name: "Notificador - Telegram bot (https://t.me/kafkajgf_bot)"
     description: |
-      🚀 Desarrollé Notificador, un bot de Telegram que centraliza información diaria de forma rápida, automatizada y desacoplada
+      🚀 Desarrollé Notificador, un bot de Telegram que centraliza información diaria de forma rápida, automatizada y desacoplada.
     features: 
       - "📰 Titulares del día"
       - "🎬 Cartelera actual de cine"
