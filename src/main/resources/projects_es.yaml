@@ -95,3 +95,33 @@ projects:
 
       - "Docker"
     github: "https://github.com/jgf78/notificator-front"
+
+  - name: "Mail-Service"
+    description: >
+            Mail Service es un microservicio desarrollado con Spring Boot + Java que proporciona un servicio centralizado para el envío de correos electrónicos.
+    features:
+      - "Envío mediante SMTP o Kafka"
+
+      - "Soporte para archivos adjuntos"
+
+      - "Gestión de múltiples destinatarios"
+
+      - "Preparado para ejecución mediante Docker"
+
+      - "Soporte para contenido HTML"
+
+    technologies:
+      - "Java 21"
+
+      - "Spring Boot"
+
+      - "PostgreSQL"
+
+      - "Kafka"
+
+      - "REST API"
+
+      - "Docker"
+
+      - "Swagger / OpenAPI"
+    github: "https://github.com/jgf78/mail-service"
