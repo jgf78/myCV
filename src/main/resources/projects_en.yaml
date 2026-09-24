@@ -124,7 +124,7 @@ projects:
     features:
       - "Sending via SMTP or Kafka"
 
-      - "Support for file attachments"
+      - "Support for file attachments in Minio"
 
       - "Management of multiple recipients"
 
@@ -146,5 +146,7 @@ projects:
       - "Docker"
 
       - "Swagger / OpenAPI"
+      
+      - "Minio"
       
     github: "https://github.com/jgf78/mail-service"     
