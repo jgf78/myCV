@@ -32,7 +32,7 @@ public class VisitFilter implements Filter {
     private static final String X_FORWARDED_FOR = "X-Forwarded-For";
     private static final String REFERER = "Referer";
     private static final String USER_AGENT = "User-Agent";
-    private static final String SPAIN = "Spain";
+    private static final String SPAIN = "ES";
     private static final String VISIT_COUNTED = "VISIT_COUNTED";
     private final WebVisitService service;
     private final NotificationService notificationService;
