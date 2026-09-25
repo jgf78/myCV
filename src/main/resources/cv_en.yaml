@@ -72,7 +72,7 @@ certification:
 
 skills:
 
-  - "Java 17/21"
+  - "Java 8/11/17/21/25"
   - "Spring Boot"
   - "Docker & Kubernetes"
   - "Apache Kafka"
@@ -80,8 +80,8 @@ skills:
   - "PostgreSQL / MySQL"
   - "CI/CD with Jenkins and Nexus"
   - "Microservices architecture"
-  - "OpenShift"
-
+  - "OpenShift / AWS"
+  - "Eclipse / IntelliJ / VS Code"
 
 languages:
 

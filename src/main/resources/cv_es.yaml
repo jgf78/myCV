@@ -62,7 +62,7 @@ certification:
     period: "2023"   
 
 skills:
-  - "Java 17/21"
+  - "Java 8/11/17/21/25"
   - "Spring Boot"
   - "Docker & Kubernetes"
   - "Apache Kafka"
@@ -70,7 +70,8 @@ skills:
   - "PostgreSQL / MySQL"
   - "CI/CD con Jenkins y Nexus"
   - "Arquitectura de microservicios"
-  - "Openshift"
+  - "Openshift / AWS"
+  - "Eclipse / IntelliJ / VS Code"
 
 languages:
   - name: "Español"
