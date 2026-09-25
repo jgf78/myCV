@@ -23,6 +23,17 @@ import jakarta.servlet.http.HttpSession;
 @Component
 public class VisitFilter implements Filter {
 
+    private static final String OTHER = "Other";
+    private static final String EDGE = "Edge";
+    private static final String SAFARI = "Safari";
+    private static final String FIREFOX = "Firefox";
+    private static final String CHROME = "Chrome";
+    private static final String UNKNOWN = "Unknown";
+    private static final String X_FORWARDED_FOR = "X-Forwarded-For";
+    private static final String REFERER = "Referer";
+    private static final String USER_AGENT = "User-Agent";
+    private static final String SPAIN = "Spain";
+    private static final String VISIT_COUNTED = "VISIT_COUNTED";
     private final WebVisitService service;
     private final NotificationService notificationService;
     private final WebVisitCounterService counterService;
@@ -51,14 +62,14 @@ public class VisitFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
 
         String path = req.getRequestURI();
-        String userAgentRaw = req.getHeader("User-Agent");
+        String userAgentRaw = req.getHeader(USER_AGENT);
 
         if (shouldIgnore(path, userAgentRaw)) {
             chain.doFilter(request, response);
             return;
         }
 
-        String referer = req.getHeader("Referer");
+        String referer = req.getHeader(REFERER);
         String ip = getClientIp(req);
 
         GeoIpData geo = geoIpService.getGeoData(ip);
@@ -79,9 +90,9 @@ public class VisitFilter implements Filter {
 
         HttpSession session = req.getSession(true);
 
-        if (session.getAttribute("VISIT_COUNTED") == null) {
+        if (session.getAttribute(VISIT_COUNTED) == null) {
 
-            session.setAttribute("VISIT_COUNTED", true);
+            session.setAttribute(VISIT_COUNTED, true);
 
             long visitNumber = counterService.incrementAndGet();
 
@@ -90,13 +101,15 @@ public class VisitFilter implements Filter {
             long monthlyVisits =
                     counterMonthlyService.getCurrentMonthVisits();
 
-            notificationService.sendVisitNotification(
-                    visitNumber,
-                    simplifyUserAgent(userAgentRaw),
-                    ip,
-                    monthlyVisits,
-                    geo
-            );
+            if (SPAIN.equalsIgnoreCase(country)) {
+                notificationService.sendVisitNotification(
+                        visitNumber,
+                        simplifyUserAgent(userAgentRaw),
+                        ip,
+                        monthlyVisits,
+                        geo
+                );
+            }
         }
 
         chain.doFilter(request, response);
@@ -121,7 +134,7 @@ public class VisitFilter implements Filter {
 
     private String getClientIp(HttpServletRequest request) {
 
-        String xfHeader = request.getHeader("X-Forwarded-For");
+        String xfHeader = request.getHeader(X_FORWARDED_FOR);
 
         if (xfHeader != null && !xfHeader.isEmpty()) {
             return xfHeader.split(",")[0].trim();
@@ -133,26 +146,26 @@ public class VisitFilter implements Filter {
     private String simplifyUserAgent(String ua) {
 
         if (ua == null) {
-            return "Unknown";
+            return UNKNOWN;
         }
 
-        if (ua.contains("Chrome")) {
-            return "Chrome";
+        if (ua.contains(CHROME)) {
+            return CHROME;
         }
 
-        if (ua.contains("Firefox")) {
-            return "Firefox";
+        if (ua.contains(FIREFOX)) {
+            return FIREFOX;
         }
 
-        if (ua.contains("Safari") && !ua.contains("Chrome")) {
-            return "Safari";
+        if (ua.contains(SAFARI)) {
+            return SAFARI;
         }
 
-        if (ua.contains("Edge")) {
-            return "Edge";
+        if (ua.contains(EDGE)) {
+            return EDGE;
         }
 
-        return "Other";
+        return OTHER;
     }
 
     private boolean isStatic(String path) {
