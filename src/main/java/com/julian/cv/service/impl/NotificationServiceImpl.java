@@ -18,6 +18,9 @@ import com.julian.cv.model.EmailSendEvent;
 import com.julian.cv.model.GeoIpData;
 import com.julian.cv.service.NotificationService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
@@ -143,6 +146,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public void sendMonthlyReport(String message) {
 
+        log.info("📧 Preparando envío del reporte mensual");
+
         EmailSendEvent event = new EmailSendEvent(
                 List.of(mailRecipient),
                 List.of(),
@@ -150,10 +155,14 @@ public class NotificationServiceImpl implements NotificationService {
                 null,
                 "Informe mensual MyCV",
                 message,
-                false,
+                true,
                 List.of()
         );
 
+        log.info("📨 Publicando reporte en Kafka para: {}", mailRecipient);
+
         mailProducer.sendEmail(event);
+
+        log.info("✅ Evento de email enviado a Kafka");
     }
 }
