@@ -1,17 +1,15 @@
 package com.julian.cv.kafka;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.julian.cv.model.EmailSendEvent;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class MailProducer {
-
-    private static final Logger log =
-            LoggerFactory.getLogger(MailProducer.class);
 
     private static final String TOPIC = "mail.send";
 
