@@ -38,6 +38,13 @@ spring:
     servlet:
       produce-partial-output-while-processing: true   
 
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:100.108.25.117:9094}
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer    
+
 sql:
   init:
     mode: never
@@ -47,6 +54,10 @@ server:
 
 jwt:
   secret: P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1P4bl0YD4n1
+  
+mycv:
+  mail:
+    recipient: ${MYCV_MAIL_RECIPIENT}  
 
 logging:
   file:

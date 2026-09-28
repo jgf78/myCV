@@ -3,14 +3,18 @@ package com.julian.cv.service.impl;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.julian.cv.kafka.MailProducer;
+import com.julian.cv.model.EmailSendEvent;
 import com.julian.cv.model.GeoIpData;
 import com.julian.cv.service.NotificationService;
 
@@ -18,18 +22,26 @@ import com.julian.cv.service.NotificationService;
 public class NotificationServiceImpl implements NotificationService {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    private final MailProducer mailProducer;
 
     private static final String URL =
             "http://jgf78.duckdns.org:8083/api/messages/send";
 
+    @Value("${mycv.mail.recipient}")
+    private String mailRecipient;
+
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+    public NotificationServiceImpl(MailProducer mailProducer) {
+        this.mailProducer = mailProducer;
+    }
 
     @Override
     public void sendVisitNotification(long visitNumber,
                                        String userAgent,
                                        String ip,
-                                       long monthlyVisits, 
+                                       long monthlyVisits,
                                        GeoIpData geo) {
 
         String formattedDate = ZonedDateTime
@@ -37,7 +49,7 @@ public class NotificationServiceImpl implements NotificationService {
                 .format(FORMATTER);
 
         String shortUA = simplifyUserAgent(userAgent);
-        
+
         String location = buildLocation(geo);
         String flag = countryFlag(geo != null ? geo.country() : null);
 
@@ -77,7 +89,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         if (ua.contains("Chrome")) browser = "Chrome";
         else if (ua.contains("Firefox")) browser = "Firefox";
-        else if (ua.contains("Safari") && !ua.contains("Chrome")) browser = "Safari";
+        else if (ua.contains("Safari")) browser = "Safari";
         else if (ua.contains("Edge")) browser = "Edge";
 
         if (ua.contains("Windows")) os = "Windows";
@@ -88,7 +100,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         return browser + " / " + os;
     }
-    
+
     private String buildLocation(GeoIpData geo) {
 
         if (geo == null) return "Ubicación desconocida";
@@ -107,7 +119,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         return result.isBlank() ? "Ubicación desconocida" : result;
     }
-    
+
     private String countryFlag(String countryCode) {
 
         if (countryCode == null) return "🌍";
@@ -127,21 +139,21 @@ public class NotificationServiceImpl implements NotificationService {
             default -> "🌍";
         };
     }
-    
+
     @Override
     public void sendMonthlyReport(String message) {
-        send(message);
-    }
 
-    private void send(String message) {
-
-        restTemplate.postForObject(
-                URL,
-                Map.of(
-                        "message", message,
-                        "destination", "mail"
-                ),
-                String.class
+        EmailSendEvent event = new EmailSendEvent(
+                List.of(mailRecipient),
+                List.of(),
+                List.of(),
+                null,
+                "Informe mensual MyCV",
+                message,
+                false,
+                List.of()
         );
+
+        mailProducer.sendEmail(event);
     }
 }

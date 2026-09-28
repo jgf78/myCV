@@ -14,8 +14,8 @@ public class MonthlyReport {
     private final MonthlyReportService monthlyReportService;
 
     // 📅 día 1 de cada mes a las 08:00
-    @Scheduled(cron = "0 0 8 1 * *")
-    //@Scheduled(cron = "*/10 * * * * *")
+    //@Scheduled(cron = "0 0 8 1 * *")
+    @Scheduled(cron = "0 */2 * * * *")
     public void sendMonthlyReport() {
         monthlyReportService.sendPreviousMonthReport();
     }
