@@ -3,7 +3,6 @@ projects:
   - name: "Notificador - Telegram bot (https://t.me/kafkajgf_bot)"
     description: |
       🚀 I developed Notificador, a Telegram bot that centralizes daily information quickly, automatically and in a decoupled way.
-
     features:
       - "📰 Daily news headlines"
       - "🎬 Current cinema listings"
@@ -11,7 +10,6 @@ projects:
       - "📺 DTT programming"
       - "🍿 Current top streaming platform series"
       - "and much more..."
-
     technologies:
       - "Java 17"
       - "Spring Boot"
@@ -19,16 +17,12 @@ projects:
       - "Docker"
       - "Redis"
       - "Kafka"
-
     github: "https://github.com/jgf78/kafkanotificator"
 
-
   - name: "Notificator (Multi-channel system)"
-
     description: |
       A Spring Boot application designed to centralize notification delivery through multiple channels.
       The project is compiled, a Docker image is generated and automatically published to Docker Hub through Jenkins CI/CD.
-
     features:
       - "💬 Telegram"
       - "💬 WhatsApp"
@@ -36,7 +30,6 @@ projects:
       - "💻 MQTT"
       - "📧 Email (SMTP)"
       - "Scheduled messages and much more."
-
     technologies:
       - "Java 17"
       - "Spring Boot"
@@ -44,39 +37,30 @@ projects:
       - "Docker"
       - "Redis"
       - "Kafka"
-
+      - "Jenkins"
     github: "https://github.com/jgf78/kafkanotificator"
 
-
   - name: "Google Calendar Notifier"
-
     description: |
       Integration with Google Calendar to synchronize events and generate automatic notifications through Notificator.
-
     features:
-      - "Synchronization with Google Calendar API"
-      - "Daily agenda from all calendars at 8:00 AM"
-
+      - "- Synchronization with Google Calendar API"
+      - "- Daily agenda from all calendars at 8:00 AM"
     technologies:
       - "Java 17"
       - "Spring Boot"
       - "Google Calendar API"
-
     github: "https://github.com/jgf78/calendar"
 
-
   - name: "MyCV"
-
     description: |
       The application you are currently viewing... designed to showcase my CV in a more attractive way while also displaying my other projects.
-
     features:
-      - "Secured Admin module for website management"
-      - "Portfolio of my applications"
-      - "Responsive application"
-      - "Automatic light/dark mode"
-      - "Bilingual website"
-
+      - "- Secured Admin module for website management"
+      - "- Portfolio of my applications"
+      - "- Responsive application"
+      - "- Automatic light/dark mode"
+      - "- Bilingual website"
     technologies:
       - "Java 17"
       - "Spring Boot"
@@ -84,96 +68,60 @@ projects:
       - "Docker"
       - "Spring Security and JWT"
       - "Thymeleaf"
-
     github: "https://github.com/jgf78/myCV"
     
   - name: "Notificator-Front"
-
     description: >
       Web application for managing and sending notifications from a single interface to different platforms and communication services.
-
     features:
-      - "Send notifications from a web interface"
-
-      - "Support for multiple destinations: Telegram, Discord, Mail, WhatsApp, Alexa and MQTT"
-
-      - "Support for messages, file attachments, polls and pinned messages"
-
-      - "Integration with the Notificator REST API"
-
-      - "Responsive interface"
-
+      - "- Send notifications from a web interface"
+      - "- Support for multiple destinations: Telegram, Discord, Mail, WhatsApp, Alexa and MQTT"
+      - "- Support for messages, file attachments, polls and pinned messages"
+      - "- Integration with the Notificator REST API"
+      - "- Responsive interface"
     technologies:
       - "Java 17"
-
       - "Spring Boot"
-
       - "Thymeleaf"
-
       - "HTML / CSS / JavaScript"
-
       - "REST API"
-
       - "Docker"
-
     github: "https://github.com/jgf78/notificator-front"  
 
   - name: "Mail-Service"
     description: >
             Mail Service is a microservice developed using Spring Boot and Java that provides a centralized service for sending emails.
     features:
-      - "Sending via SMTP or Kafka"
-
-      - "Support for file attachments in Minio"
-
-      - "Management of multiple recipients"
-
-      - "Prepared for execution via Docker"
-
-      - "Support for HTML content"
-
+      - "- Sending via SMTP or Kafka"
+      - "- Support for file attachments in Minio"
+      - "- Management of multiple recipients"
+      - "- Prepared for execution via Docker"
+      - "- Support for HTML content"
     technologies:
       - "Java 21"
-
       - "Spring Boot"
-
       - "PostgreSQL"
-
       - "Kafka"
-
       - "REST API"
-
       - "Docker"
-
       - "Swagger / OpenAPI"
-      
       - "Minio"
-      
     github: "https://github.com/jgf78/mail-service"     
 
   - name: "Task-Manager"
     description: >
             Task Manager is a REST API developed with Spring Boot + Java 25 for task management.
-
             The project is developed following the principles of Hexagonal Architecture (Ports & Adapters), separating business logic, use cases, and external technologies.
     features:
-      - "Task management"
-
-      - "Pagination with sorting and filters"
+      - "- Task management"
+      - "- Pagination with sorting and filters"
 
     technologies:
       - "Java 25"
-
       - "Spring Boot"
-
       - "PostgreSQL"
-
       - "REST API"
-
       - "Docker"
-
       - "Swagger / OpenAPI"
-      
       - "Hexagonal Architecture"
-      
     github: "https://github.com/jgf78/task-manager"

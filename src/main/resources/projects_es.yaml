@@ -36,14 +36,15 @@ projects:
       - "Docker"
       - "Redis"
       - "Kafka"
+      - "Jenkins"
     github: "https://github.com/jgf78/kafkanotificator"
 
   - name: "Google Calendar Notifier"
     description: >
         Integración con Google Calendar para sincronizar eventos y generar notificaciones automáticas por medio de Notificator. 
     features:
-        - "Sincronización con Google Calendar API"
-        - "Agenda diaria de todos los calendarios a las 8:00 am"  
+        - "- Sincronización con Google Calendar API"
+        - "- Agenda diaria de todos los calendarios a las 8:00 am"  
     technologies:
       - "Java 17"
       - "Spring Boot"
@@ -54,11 +55,11 @@ projects:
     description: >
           La aplicación que estás viendo... donde se pretende mostrar mi CV de una forma más llamativa asi como mostrar mis demás proyectos. 
     features:
-          - "Módulo Admin securizado para la gestión de la web"
-          - "Portfolio de mis applicaciones" 
-          - "Aplicación responsive" 
-          - "Modo light/dark automático"
-          - "Web bilingüe"
+          - "- Módulo Admin securizado para la gestión de la web"
+          - "- Portfolio de mis applicaciones" 
+          - "- Aplicación responsive" 
+          - "- Modo light/dark automático"
+          - "- Web bilingüe"
     technologies:
         - "Java 17"
         - "Spring Boot"
@@ -72,27 +73,17 @@ projects:
     description: >
             Aplicación web para gestionar y enviar notificaciones desde una única interfaz a diferentes plataformas y servicios de comunicación.
     features:
-      - "Envío de notificaciones desde una interfaz web"
-
-      - "Soporte para múltiples destinos: Telegram, Discord, Mail, WhatsApp, Alexa y MQTT"
-
-      - "Envío de mensajes, archivos adjuntos, encuestas y mensajes anclados"
-
-      - "Integración con la API REST de Notificator"
-
-      - "Interfaz responsive"
-
+      - "- Envío de notificaciones desde una interfaz web"
+      - "- Soporte para múltiples destinos: Telegram, Discord, Mail, WhatsApp, Alexa y MQTT"
+      - "- Envío de mensajes, archivos adjuntos, encuestas y mensajes anclados"
+      - "- Integración con la API REST de Notificator"
+      - "- Interfaz responsive"
     technologies:
       - "Java 17"
-
       - "Spring Boot"
-
       - "Thymeleaf"
-
       - "HTML / CSS / JavaScript"
-
       - "REST API"
-
       - "Docker"
     github: "https://github.com/jgf78/notificator-front"
 
@@ -100,58 +91,35 @@ projects:
     description: >
             Mail Service es un microservicio desarrollado con Spring Boot + Java que proporciona un servicio centralizado para el envío de correos electrónicos.
     features:
-      - "Envío mediante SMTP o Kafka"
-
-      - "Soporte para archivos adjuntos en Minio"
-
-      - "Gestión de múltiples destinatarios"
-
-      - "Preparado para ejecución mediante Docker"
-
-      - "Soporte para contenido HTML"
-
+      - "- Envío mediante SMTP o Kafka"
+      - "- Soporte para archivos adjuntos en Minio"
+      - "- Gestión de múltiples destinatarios"
+      - "- Preparado para ejecución mediante Docker"
+      - "- Soporte para contenido HTML"
     technologies:
       - "Java 21"
-
       - "Spring Boot"
-
       - "PostgreSQL"
-
       - "Kafka"
-
       - "REST API"
-
       - "Docker"
-
       - "Swagger / OpenAPI"
-      
       - "Minio"
-      
     github: "https://github.com/jgf78/mail-service"
 
   - name: "Task-Manager"
     description: >
             Task Manager es una API REST desarrollada con Spring Boot + Java 25 para la gestión de tareas.
-
             El proyecto está desarrollado siguiendo los principios de Arquitectura Hexagonal (Ports & Adapters), separando la lógica de negocio, los casos de uso y las tecnologías externas.
     features:
-      - "Gestión de tareas"
-
-      - "Paginación con ordenación y filtros"
-
+      - "- Gestión de tareas"
+      - "- Paginación con ordenación y filtros"
     technologies:
       - "Java 25"
-
       - "Spring Boot"
-
       - "PostgreSQL"
-
       - "REST API"
-
       - "Docker"
-
       - "Swagger / OpenAPI"
-      
       - "Arquitectura Hexagonal"
-      
     github: "https://github.com/jgf78/task-manager"
