@@ -150,3 +150,30 @@ projects:
       - "Minio"
       
     github: "https://github.com/jgf78/mail-service"     
+
+  - name: "Task-Manager"
+    description: >
+            Task Manager is a REST API developed with Spring Boot + Java 25 for task management.
+
+            The project is developed following the principles of Hexagonal Architecture (Ports & Adapters), separating business logic, use cases, and external technologies.
+    features:
+      - "Task management"
+
+      - "Pagination with sorting and filters"
+
+    technologies:
+      - "Java 25"
+
+      - "Spring Boot"
+
+      - "PostgreSQL"
+
+      - "REST API"
+
+      - "Docker"
+
+      - "Swagger / OpenAPI"
+      
+      - "Hexagonal Architecture"
+      
+    github: "https://github.com/jgf78/task-manager"
