@@ -40,7 +40,7 @@ projects:
     github: "https://github.com/jgf78/kafkanotificator"
 
   - name: "Google Calendar Notifier"
-    description: >
+    description: |
         Integración con Google Calendar para sincronizar eventos y generar notificaciones automáticas por medio de Notificator. 
     features:
         - "- Sincronización con Google Calendar API"
@@ -52,7 +52,7 @@ projects:
     github: "https://github.com/jgf78/calendar"
 
   - name: "MyCV"
-    description: >
+    description: |
           La aplicación que estás viendo... donde se pretende mostrar mi CV de una forma más llamativa asi como mostrar mis demás proyectos. 
     features:
           - "- Módulo Admin securizado para la gestión de la web"
@@ -70,7 +70,7 @@ projects:
     github: "https://github.com/jgf78/myCV"
     
   - name: "Notificator-Front"
-    description: >
+    description: |
             Aplicación web para gestionar y enviar notificaciones desde una única interfaz a diferentes plataformas y servicios de comunicación.
     features:
       - "- Envío de notificaciones desde una interfaz web"
@@ -88,7 +88,7 @@ projects:
     github: "https://github.com/jgf78/notificator-front"
 
   - name: "Mail-Service"
-    description: >
+    description: |
             Mail Service es un microservicio desarrollado con Spring Boot + Java que proporciona un servicio centralizado para el envío de correos electrónicos.
     features:
       - "- Envío mediante SMTP o Kafka"
@@ -108,7 +108,7 @@ projects:
     github: "https://github.com/jgf78/mail-service"
 
   - name: "Task-Manager"
-    description: >
+    description: |
             Task Manager es una API REST desarrollada con Spring Boot + Java 25 para la gestión de tareas.
             El proyecto está desarrollado siguiendo los principios de Arquitectura Hexagonal (Ports & Adapters), separando la lógica de negocio, los casos de uso y las tecnologías externas.
     features:

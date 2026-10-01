@@ -71,7 +71,7 @@ projects:
     github: "https://github.com/jgf78/myCV"
     
   - name: "Notificator-Front"
-    description: >
+    description: |
       Web application for managing and sending notifications from a single interface to different platforms and communication services.
     features:
       - "- Send notifications from a web interface"
@@ -89,7 +89,7 @@ projects:
     github: "https://github.com/jgf78/notificator-front"  
 
   - name: "Mail-Service"
-    description: >
+    description: |
             Mail Service is a microservice developed using Spring Boot and Java that provides a centralized service for sending emails.
     features:
       - "- Sending via SMTP or Kafka"
@@ -109,7 +109,7 @@ projects:
     github: "https://github.com/jgf78/mail-service"     
 
   - name: "Task-Manager"
-    description: >
+    description: |
             Task Manager is a REST API developed with Spring Boot + Java 25 for task management.
             The project is developed following the principles of Hexagonal Architecture (Ports & Adapters), separating business logic, use cases, and external technologies.
     features:
