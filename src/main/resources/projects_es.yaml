@@ -114,6 +114,7 @@ projects:
     features:
       - "- Gestión de tareas"
       - "- Paginación con ordenación y filtros"
+      - "- Selección de base de datos mediante variables de entorno"
     technologies:
       - "Java 25"
       - "Spring Boot"

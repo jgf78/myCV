@@ -115,7 +115,7 @@ projects:
     features:
       - "- Task management"
       - "- Pagination with sorting and filters"
-
+      - "- Database selection using environment variables"
     technologies:
       - "Java 25"
       - "Spring Boot"
