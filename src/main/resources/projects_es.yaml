@@ -118,6 +118,7 @@ projects:
       - "Java 25"
       - "Spring Boot"
       - "PostgreSQL"
+      - "MongoDB"
       - "REST API"
       - "Docker"
       - "Swagger / OpenAPI"
