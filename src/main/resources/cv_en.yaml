@@ -77,10 +77,11 @@ skills:
   - "Docker / Kubernetes"
   - "Apache Kafka"
   - "Spring Security"
-  - "PostgreSQL / MySQL"
+  - "PostgreSQL / MySQL / MongoDB"
   - "CI/CD with Jenkins and Nexus"
   - "Microservices architecture"
   - "OpenShift / AWS"
+  - "Maven"
   - "Eclipse / IntelliJ / VS Code"
 
 languages:
