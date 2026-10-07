@@ -1,12 +1,68 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="canonical" href="https://www.juliangomezfernandez.com/" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title th:text="${cv.name} + ' - ' + #{nav.cv}">Mi CV</title>
+<th:block
+th:with="base='https://www.juliangomezfernandez.com',
+         isEn=${#locale.language == 'en'},
+         pageTitle=${cv.name + ' | ' + cv.title},
+         desc=${cv.name + ' - ' + cv.title + '. ' + #strings.abbreviate(cv.summary, 110)},
+         photoUrl=${#strings.startsWith(cv.photo, 'http') ? cv.photo : 'https://www.juliangomezfernandez.com' + (#strings.startsWith(cv.photo, '/') ? '' : '/') + cv.photo}">
 
+
+<title th:text="${pageTitle}">Julián Gómez Fernández | Senior Java Backend Developer</title>
+<meta name="description" th:content="${desc}">
+<meta name="author" th:content="${cv.name}">
+<meta name="robots" content="index, follow">
+
+<link rel="canonical"
+    th:href="${isEn ? base + '/?lang=en' : base + '/'}"
+    href="https://www.juliangomezfernandez.com/" />
+<link rel="alternate" hreflang="es" th:href="${base + '/'}"
+    href="https://www.juliangomezfernandez.com/" />
+<link rel="alternate" hreflang="en" th:href="${base + '/?lang=en'}"
+    href="https://www.juliangomezfernandez.com/?lang=en" />
+<link rel="alternate" hreflang="x-default" th:href="${base + '/'}"
+    href="https://www.juliangomezfernandez.com/" />
+
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" th:content="${cv.name}">
+    <meta property="og:title" th:content="${pageTitle}">
+    <meta property="og:description" th:content="${desc}">
+    <meta property="og:url"
+        th:content="${isEn ? base + '/?lang=en' : base + '/'}">
+    <meta property="og:image" th:content="${photoUrl}">
+    <meta property="og:locale"
+        th:content="${isEn ? 'en_US' : 'es_ES'}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" th:content="${pageTitle}">
+    <meta name="twitter:description" th:content="${desc}">
+    <meta name="twitter:image" th:content="${photoUrl}">
+    
+    <!-- Datos estructurados: Person -->
+        <script type="application/ld+json" th:inline="javascript">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": [[${cv.name}]],
+            "jobTitle": [[${cv.title}]],
+            "description": [[${desc}]],
+            "url": "https://www.juliangomezfernandez.com/",
+            "image": [[${photoUrl}]],
+            "email": "mailto:contacto@juliangomezfernandez.com",
+            "sameAs": [
+                "https://www.linkedin.com/in/juliangomezfdez/",
+                "https://github.com/jgf78"
+            ],
+            "knowsAbout": [[${cv.skills}]]
+        }
+        </script>
+    </th:block>    
+
+    
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -138,8 +194,10 @@ footer {
 		<header class="cv-header mb-4">
 
 			<img th:src="@{${cv.photo}}"
-			     class="rounded-circle shadow cv-photo"
-			     th:alt="#{cv.photo.alt}">
+                 class="rounded-circle shadow cv-photo"
+                 width="140" height="140"
+                 th:alt="${cv.name + ' - ' + cv.title}"
+                 alt="Julián Gómez Fernández">    
 
 			<div>
 				<h1 th:text="${cv.name}"></h1>

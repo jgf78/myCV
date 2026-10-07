@@ -1,15 +1,89 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" lang="es" xmlns:th="http://www.thymeleaf.org">    
 
 <head>
-<link rel="canonical" href="https://www.juliangomezfernandez.com/projects" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title th:text="#{projects.page.title} + ' | Julián Gómez Fernández'">
-    Proyectos | Julián Gómez Fernández
-</title>
+<th:block
+    th:with="base='https://www.juliangomezfernandez.com',
+             isEn=${#locale.language == 'en'},
+             pageTitle=${#messages.msg('projects.page.title') + ' | Julián Gómez Fernández'},
+             desc=${'Julián Gómez Fernández · ' + #messages.msg('projects.title') + ': ' + #strings.abbreviate(#strings.listJoin(projects.projects.![name], ', '), 120)}">
 
+    <title th:text="${pageTitle}">Proyectos | Julián Gómez Fernández</title>
+    <meta name="description" th:content="${desc}">
+    <meta name="author" content="Julián Gómez Fernández">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical propio por idioma + hreflang -->
+    <link rel="canonical"
+        th:href="${isEn ? base + '/projects?lang=en' : base + '/projects'}"
+        href="https://www.juliangomezfernandez.com/projects" />
+    <link rel="alternate" hreflang="es" th:href="${base + '/projects'}"
+        href="https://www.juliangomezfernandez.com/projects" />
+    <link rel="alternate" hreflang="en" th:href="${base + '/projects?lang=en'}"
+        href="https://www.juliangomezfernandez.com/projects?lang=en" />
+    <link rel="alternate" hreflang="x-default" th:href="${base + '/projects'}"
+        href="https://www.juliangomezfernandez.com/projects" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Julián Gómez Fernández">
+    <meta property="og:title" th:content="${pageTitle}">
+    <meta property="og:description" th:content="${desc}">
+    <meta property="og:url"
+        th:content="${isEn ? base + '/projects?lang=en' : base + '/projects'}">
+    <meta property="og:locale"
+        th:content="${isEn ? 'en_US' : 'es_ES'}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" th:content="${pageTitle}">
+    <meta name="twitter:description" th:content="${desc}">
+
+    <!-- Datos estructurados: lista de proyectos de software -->
+    <script type="application/ld+json" th:inline="javascript">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": [[${pageTitle}]],
+        "description": [[${desc}]],
+        "url": [[${isEn ? base + '/projects?lang=en' : base + '/projects'}]],
+        "author": {
+            "@type": "Person",
+            "name": "Julián Gómez Fernández",
+            "url": "https://www.juliangomezfernandez.com/",
+            "sameAs": [
+                "https://www.linkedin.com/in/juliangomezfdez/",
+                "https://github.com/jgf78"
+            ]
+        },
+        "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+                [# th:each="project, st : ${projects.projects}"]
+                {
+                    "@type": "ListItem",
+                    "position": [(${st.count})],
+                    "item": {
+                        "@type": "SoftwareSourceCode",
+                        "name": [[${project.name}]],
+                        "description": [[${project.description}]],
+                        "codeRepository": [[${project.github}]],
+                        "programmingLanguage": [[${project.technologies}]],
+                        "author": {
+                            "@type": "Person",
+                            "name": "Julián Gómez Fernández"
+                        }
+                    }
+                }[(${st.last} ? '' : ',')]
+                [/]
+            ]
+        }
+    }
+    </script>
+</th:block>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     rel="stylesheet">
@@ -62,7 +136,7 @@ body {
     color: #495057;
 }
 
-.project-card h4 {
+.project-card h3 {
     color: #212529;
 }
 
