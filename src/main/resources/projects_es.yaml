@@ -89,7 +89,7 @@ projects:
 
   - name: "Mail-Service"
     description: |
-            Mail Service es un microservicio desarrollado con Spring Boot + Java que proporciona un servicio centralizado para el envío de correos electrónicos.
+            Mail Service es un microservicio desarrollado con Spring Boot + Java 21 que proporciona un servicio centralizado para el envío de correos electrónicos.
     features:
       - "- Envío mediante SMTP o Kafka"
       - "- Soporte para archivos adjuntos en Minio"
